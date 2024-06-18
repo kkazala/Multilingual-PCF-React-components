@@ -1,0 +1,1 @@
+﻿https://github.com/microsoft/PowerApps-Samples/blob/master/component-framework/ChoicesPickerReactControl/ChoicesPickerReact/ChoicesPickerComponent.tsx
