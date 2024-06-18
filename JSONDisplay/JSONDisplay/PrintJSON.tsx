@@ -1,11 +1,15 @@
-﻿import { IStackStyles, IStackTokens, ITheme, Separator, Stack, createTheme } from '@fluentui/react';
+﻿import { FluentProvider, IdPrefixProvider, Tree, TreeItem, TreeItemLayout, webLightTheme } from "@fluentui/react-components";
+import {
+    CircleSmall20Filled,
+    ErrorCircle20Regular
+} from "@fluentui/react-icons";
 import * as React from 'react';
 
 export interface IPrintJSONProps {
     jsonVal: string;
 }
 type parsedResult = {
-    value:  object | undefined;
+    value: object | undefined;
     isJson: boolean;
 }
 type sectionInfo = {
@@ -16,34 +20,10 @@ type tabInfo = {
     name: string;
     sections: Array<sectionInfo>;
 };
-const stackStyle: IStackStyles = {
-    root: {
-        textAlign: 'left',
-        fontSize:'small',
-    },
-};
-const itemStyle: IStackStyles = {
-    root: {
-        paddingLeft: '20px',
-        fontColor:'rgb(102, 102, 102)'
-    },
-};
-const themeSeparator: ITheme = createTheme({
-    fonts: {
-        medium: {
-            fontWeight: 'bold',
-        },
-    },
-    palette: {
-        neutralLighter:'#a19f9d'
-    }
-});
-
-const containerStackTokens: IStackTokens = { childrenGap: 5 };
 
 const PrintJSON = (props: IPrintJSONProps) => {
 
-    const [results, setResults] = React.useState<tabInfo []|null>(null);
+    const [results, setResults] = React.useState<tabInfo[] | null>(null);
 
     const replaceNewlinesWithinQuotes = (input: string): string => {
         return input.replace(/("[^"]*")/g, (match, quotedString) => {
@@ -78,63 +58,73 @@ const PrintJSON = (props: IPrintJSONProps) => {
 
     React.useEffect(() => {
 
-        const getAsJSON=(val:string):parsedResult=>{
+        const getAsJSON = (val: string): parsedResult => {
             if (val === undefined || val === null || val === "") return { value: undefined, isJson: false };
             return tryParseJson(val);
         }
-        const res= getAsJSON(props.jsonVal);
-        if(res.isJson && res.value !== undefined){
+        const res = getAsJSON(props.jsonVal);
+        if (res.isJson && res.value !== undefined) {
             const validationInfo: tabInfo[] = res.value as tabInfo[];
 
-            const clean=validationInfo.map((tab)=>{
-                const sections=tab.sections.map((section)=>{
-                    const controls=section.controls.map((control)=>{
+            const clean = validationInfo.map((tab) => {
+                const sections = tab.sections.map((section) => {
+                    const controls = section.controls.map((control) => {
                         return control;
-                    }).filter((control)=>control!==undefined);
-                    return {...section, controls:controls};
-                }).filter((section)=>section!==undefined);
-                return {...tab, sections:sections};
+                    }).filter((control) => control !== undefined);
+                    return { ...section, controls: controls };
+                }).filter((section) => section !== undefined);
+                return { ...tab, sections: sections };
             });
             setResults(clean);
+
+
         }
 
     }, [props.jsonVal]);
 
-    return (<Stack styles={stackStyle} tokens={{childrenGap:10}}>
-        {
-            //print tab names
-            results !== undefined && results !== null && Object.keys(results).length > 0 &&
-            results.map((tab, tabIndex) => {
-                return (
-                    <>
-                        <Separator alignContent="start" theme={themeSeparator} >{tab.name}</Separator>
-                        <Stack key={tabIndex} tokens={containerStackTokens} styles={itemStyle}>
-                        {
-                            //print section names
-                            tab.sections.map((section) => {
-                                return (<>
-                                        <Stack.Item>{section.name}</Stack.Item>
+    return (<IdPrefixProvider value="IDAPPS-DateToggle">
+        <FluentProvider theme={webLightTheme}>
+            <Tree >
+                {
+                    //print tab names
+                    results !== undefined && results !== null && Object.keys(results).length > 0 &&
+                    results.map((tab, tabIndex) => {
+                        return (
+                            <>
+                                <TreeItem open={true}  itemType="branch" value={`default-tree-${tabIndex}`}>
+                                    <TreeItemLayout expandIcon={<ErrorCircle20Regular />}>{tab.name}</TreeItemLayout>
+                                    <Tree>
                                         {
-                                            //print control names
-                                            section.controls.map((c, controlIndex) => {
-                                                return (
-                                                    <Stack.Item key={controlIndex} styles={itemStyle}>
-                                                        <span>{c}</span>
-                                                    </Stack.Item>
+                                            //print section names
+                                            tab.sections.map((section, sectionIndex) => {
+                                                return (<TreeItem open={true}  key={tabIndex} itemType="branch" value={`default-subtree-${sectionIndex}`}>
+                                                    <TreeItemLayout expandIcon={<CircleSmall20Filled />}>{section.name}</TreeItemLayout>
+                                                    <Tree>
+                                                        {
+                                                            //print control names
+                                                            section.controls.map((c, controlIndex) => {
+                                                                return (
+                                                                    <TreeItem key={controlIndex} itemType="leaf" value={`default-leaf-${controlIndex}`}>
+                                                                        <TreeItemLayout>{c}</TreeItemLayout>
+                                                                    </TreeItem>
+                                                                )
+                                                            })
+                                                        }
+                                                    </Tree>
+                                                </TreeItem>
                                                 )
                                             })
                                         }
-                                </>
-                                )
-                            })
-                        }
-                    </Stack>
-                    </>
-                )
-            })
+                                    </Tree >
+                                </TreeItem>
+                            </>
+                        )
+                    })
 
-        }
-    </Stack>)
+                }
+            </Tree >
+        </FluentProvider>
+    </IdPrefixProvider >)
 }
 
 export default PrintJSON;
