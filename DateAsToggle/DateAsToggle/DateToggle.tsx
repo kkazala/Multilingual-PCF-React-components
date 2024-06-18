@@ -20,7 +20,7 @@ const DateToggle = (props: IDateToggleProps) => {
 
     return(<>
         {!props.masked &&
-            <IdPrefixProvider value="APPID-">
+            <IdPrefixProvider value="IDAPPS-DateToggle">
                 <FluentProvider theme={webLightTheme}>
                     <Switch
                         label={props.label}

@@ -82,7 +82,7 @@ const PrintJSON = (props: IPrintJSONProps) => {
 
     }, [props.jsonVal]);
 
-    return (<IdPrefixProvider value="IDAPPS-DateToggle">
+    return (<IdPrefixProvider value="IDAPPS-PrintJSON">
         <FluentProvider theme={webLightTheme}>
             <Tree >
                 {

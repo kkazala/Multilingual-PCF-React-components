@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="idapps" constructor="OptionSetChoiceGroup" version="0.0.1" display-name-key="OptionSet Choice Group" description-key="OptionSetChoiceGroup description" control-type="virtual" >
+  <control namespace="idapps" constructor="OptionSetChoiceGroup" version="1.0.0" display-name-key="OptionSet Choice Group" description-key="OptionSetChoiceGroup description" control-type="virtual" >
     <external-service-usage enabled="false">
     </external-service-usage>
     <property name="sourceControl" display-name-key="Field" description-key="Source Field" of-type="OptionSet" usage="bound" required="true"/>

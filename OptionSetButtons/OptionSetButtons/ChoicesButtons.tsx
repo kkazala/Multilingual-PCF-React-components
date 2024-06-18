@@ -1,4 +1,4 @@
-﻿import { Stack } from '@fluentui/react';
+﻿import { FluentProvider, IdPrefixProvider, makeStyles, webLightTheme } from '@fluentui/react-components';
 import * as React from 'react';
 import { useState } from 'react';
 import ButtonToggle from './ToggleButton';
@@ -13,6 +13,26 @@ export interface IChoicesButtonsProps {
     masked: boolean;
 }
 
+const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'nowrap',
+        width: 'auto',
+        height: 'auto',
+        boxSizing: 'border-box',
+        '> *': {
+            textOverflow: 'ellipsis',
+        },
+        '> :not(:first-child)': {
+            marginTop: '0px',
+            marginLeft: '10px',
+        },
+        '> *:not(.ms-StackItem)': {
+            flexShrink: 1,
+        },
+    },
+})
 
 const ChoicesButtons = (props: IChoicesButtonsProps) => {
 
@@ -22,6 +42,7 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
     const [error, setError] = useState<string | undefined>();
 
     const [buttons,setButtons] = useState<JSX.Element[]>([]);
+    const styles = useStyles();
 
     React.useEffect(() => {
 
@@ -77,14 +98,16 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
         setMasked(props.masked);
     },[props.masked]);
 
-    return (<>
+    return (<IdPrefixProvider value="IDAPPS-OptionSetButtons">
+        <FluentProvider theme={webLightTheme}>
         {selectedLabel && <div>{selectedLabel}</div>}
         {buttons && buttons.length > 0 &&
-            <Stack horizontal tokens={{ childrenGap: 10 }}>
+            <div className={styles.root}>
                 {buttons}
-            </Stack>
+            </div >
         }
-    </>);
+        </FluentProvider>
+    </IdPrefixProvider >);
 }
 
 export default ChoicesButtons;

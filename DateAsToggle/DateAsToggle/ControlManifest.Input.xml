@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="idapps" constructor="DateAsToggle" version="0.0.1" display-name-key="Date as toggle" description-key="DateAsToggle description" control-type="virtual" >
+  <control namespace="idapps" constructor="DateAsToggle" version="1.0.0" display-name-key="Date as toggle" description-key="DateAsToggle description" control-type="virtual" >
     <external-service-usage enabled="false">
     </external-service-usage>
       <type-group name="dates">

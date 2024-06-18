@@ -1,4 +1,5 @@
-﻿import { DefaultButton, IButtonStyles } from '@fluentui/react';
+﻿import { Icon } from '@fluentui/react';
+import { ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
 import { useBoolean } from '@fluentui/react-hooks';
 import * as React from 'react';
 
@@ -10,12 +11,12 @@ export interface IButtonToggleProps {
     checked?: boolean;
     onChange: (newValue: number | undefined) => void;
 }
-const iconStyles = { marginRight: '8px' };
+
 
 type btnProperties = {
     text: string;
     onClick: () => void;
-    iconProps?: { iconName: string };
+    icon?: React.ReactElement;
 }
 
 const ButtonToggle=(props:IButtonToggleProps) => {
@@ -31,27 +32,28 @@ const ButtonToggle=(props:IButtonToggleProps) => {
     };
     if (icon) {
         //add iconProps to btnProps
-        btnProps.iconProps = { iconName: icon };
+        btnProps.icon = <Icon iconName={icon} />;
     }
-    const style: Partial<IButtonStyles > = {
+    const useStyles = makeStyles({
         rootChecked: {
             backgroundColor: muted || checked
-                ? item.Color ?? 'primary'
+                ? item.Color ?? tokens.colorBrandBackground
                 : 'default',
             color: muted || checked ? 'white' : 'rgb(36, 36, 36)',
         },
-    };
+    });
+
+    const styles = useStyles();
 
     return (
         <>
-            <DefaultButton
-                styles={style}
-                toggle
+            <ToggleButton className={styles.rootChecked}
                 checked={muted || checked}
-                allowDisabledFocus
+                appearance={checked ? "primary":"outline"}
+                disabledFocusable
                 disabled={disabled}
                 {...btnProps}
-            />
+            >{btnProps.text}</ToggleButton>
         </>
     );
 };

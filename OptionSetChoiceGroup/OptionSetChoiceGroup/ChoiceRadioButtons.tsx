@@ -1,4 +1,4 @@
-import { ChoiceGroup, IChoiceGroupOption, IChoiceGroupStyles } from '@fluentui/react';
+import { FluentProvider, IdPrefixProvider, Radio, RadioGroup, RadioGroupOnChangeData, webLightTheme } from '@fluentui/react-components';
 import * as React from 'react';
 
 
@@ -12,36 +12,30 @@ export interface IChoiceRadioButtonsProps {
   masked: boolean;
 }
 
+type RadioProps={
+  value:string;
+  label:string;
+  disabled:boolean;
+  checked:boolean;
+}
 
 const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
   const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
-  const [options, setOptions] = React.useState<IChoiceGroupOption[]>([]);
-  const [styles, setStyles] = React.useState<Partial<IChoiceGroupStyles>>({})
+  const [options, setOptions] = React.useState<RadioProps[]>([]);
   const [isReady, setIsReady] = React.useState<boolean>(false);
 
   React.useEffect(() => {
 
-    const getOptions = (options: ComponentFramework.PropertyHelper.OptionMetadata[], value: number | null): IChoiceGroupOption[] => {
+    const getOptions = (options: ComponentFramework.PropertyHelper.OptionMetadata[], value: number | null): RadioProps[] => {
       return options.map((item) => {
         return {
-          key: item.Value.toString(),
-          text: `${item.Label}\u00A0\u00A0\u00A0\u00A0`,
+          value: item.Value.toString(),
+          label: item.Label,
           disabled: props.disabled,
           checked: item.Value == value
         };
       })
     }
-
-    const getStyles = (showHorizontal: boolean | null): Partial<IChoiceGroupStyles> => {
-      return {
-        flexContainer: {
-          display: showHorizontal ? 'flex' : 'block',
-          flexDirection: showHorizontal ? 'row' : 'column',
-        }
-      }
-    }
-    const _styles = getStyles(props.showHorizontal);
-    setStyles(_styles);
 
     setSelectedKey(props.value?.toString());
 
@@ -52,15 +46,22 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
 
   }, [props.options, props.showHorizontal, props.value]);
 
-  const onChange = React.useCallback((ev: React.FormEvent<HTMLElement | HTMLInputElement> | undefined, option: IChoiceGroupOption | undefined) => {
-    props.onChange(option?.key ? parseInt(option.key) : undefined);
+  const onChange = React.useCallback((ev: React.FormEvent<HTMLDivElement>, data: RadioGroupOnChangeData) => {
+    props.onChange(data?.value ? parseInt(data.value) : undefined);
   }, []);
 
-  return (<>
-    {isReady &&
-      <ChoiceGroup styles={styles} defaultSelectedKey={selectedKey} options={options} onChange={onChange} />
-    }
-  </>
+  return (<IdPrefixProvider value="IDAPPS-OptionSetChoiceGroup">
+    <FluentProvider theme={webLightTheme}>
+      {isReady &&
+        <RadioGroup value={selectedKey} onChange={onChange} layout={props.showHorizontal?"horizontal":"vertical"}>
+          {options.map((option) => {
+            return <Radio key={option.value} {...option} />
+          })}
+
+        </RadioGroup>
+      }
+    </FluentProvider>
+  </IdPrefixProvider >
   );
 
 
