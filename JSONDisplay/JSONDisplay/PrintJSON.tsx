@@ -1,7 +1,6 @@
-﻿import { FluentProvider, IdPrefixProvider, Tree, TreeItem, TreeItemLayout, webLightTheme } from "@fluentui/react-components";
+﻿import { Divider, FluentProvider, IdPrefixProvider, Tree, TreeItem, TreeItemLayout, makeStyles, webLightTheme } from "@fluentui/react-components";
 import {
-    CircleSmall20Filled,
-    ErrorCircle20Regular
+    CircleSmall20Filled
 } from "@fluentui/react-icons";
 import * as React from 'react';
 
@@ -20,9 +19,20 @@ type tabInfo = {
     name: string;
     sections: Array<sectionInfo>;
 };
-
+const useStyles = makeStyles({
+    customFont: {
+        fontSize: "14px",
+        fontWeight: "bold",
+    },
+    treeItemWide: {
+        width: '100%',
+        '> :nth-child(2)': {
+            width: '100%',
+        },
+    },
+});
 const PrintJSON = (props: IPrintJSONProps) => {
-
+    const styles = useStyles();
     const [results, setResults] = React.useState<tabInfo[] | null>(null);
 
     const replaceNewlinesWithinQuotes = (input: string): string => {
@@ -91,8 +101,10 @@ const PrintJSON = (props: IPrintJSONProps) => {
                     results.map((tab, tabIndex) => {
                         return (
                             <>
-                                <TreeItem open={true}  itemType="branch" value={`default-tree-${tabIndex}`}>
-                                    <TreeItemLayout expandIcon={<ErrorCircle20Regular />}>{tab.name}</TreeItemLayout>
+                                <TreeItem  open={true}  itemType="branch" value={`default-tree-${tabIndex}`}>
+                                    <TreeItemLayout className={styles.treeItemWide}  expandIcon={<></>}>
+                                        <Divider alignContent="start" className={styles.customFont} appearance="strong">{tab.name}</Divider>
+                                    </TreeItemLayout>
                                     <Tree>
                                         {
                                             //print section names

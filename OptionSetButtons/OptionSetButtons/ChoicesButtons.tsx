@@ -65,7 +65,6 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
                         key={item.Value}
                         item={item}
                         icon={iconMapping[item.Value]}
-                        disabled={disabled}
                         checked={item.Value == value}
                         onChange={props.onChange}
                     />

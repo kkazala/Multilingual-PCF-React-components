@@ -46,6 +46,7 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
             DateToggle, {
                 label: toggleLabel?.raw ?? sourceControl.attributes?.DisplayName ?? '',
                 value: sourceControl.raw,
+                lcid: context.userSettings.languageId.toString(),
                 onChange: this.onChange,
                 disabled: disabled,
                 masked: masked

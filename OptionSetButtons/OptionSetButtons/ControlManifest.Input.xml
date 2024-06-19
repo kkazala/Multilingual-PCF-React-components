@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="idapps" constructor="OptionSetButtons" version="1.0.0" display-name-key="OptionSet Buttons" description-key="OptionSetButtons description" control-type="virtual" >
+  <control namespace="idapps" constructor="OptionSetButtonsv9" version="1.0.0" display-name-key="OptionSet Buttons " description-key="OptionSet Buttons Fluent UI v9" control-type="virtual" >
     <external-service-usage enabled="false">
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
