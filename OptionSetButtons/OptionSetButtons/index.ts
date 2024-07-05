@@ -45,6 +45,7 @@ export class OptionSetButtonsv9 implements ComponentFramework.ReactControl<IInpu
 
         return React.createElement(
             ChoicesButtons,{
+                key:Date.now(),
                 label: sourceControl.attributes?.DisplayName??'',
                 value: sourceControl.raw,
                 options: sourceControl.attributes?.Options??[],

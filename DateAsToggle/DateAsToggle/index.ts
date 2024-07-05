@@ -34,7 +34,6 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
 
         const { sourceControl, toggleLabel } = context.parameters;
-
         let disabled = context.mode.isControlDisabled;
         let masked = false;
         if (sourceControl.security) {

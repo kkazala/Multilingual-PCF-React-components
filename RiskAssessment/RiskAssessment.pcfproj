@@ -8,8 +8,8 @@
   <Import Project="$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.props" Condition="Exists('$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.props')" />
 
   <PropertyGroup>
-    <Name>OptionSetChoiceGroup</Name>
-    <ProjectGuid>ab915fe1-572f-4c88-81b6-d467f24ab895</ProjectGuid>
+    <Name>RiskAssessment</Name>
+    <ProjectGuid>0f49784b-50d3-40e4-b2a9-cf62c7d499b0</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
   </PropertyGroup>
 

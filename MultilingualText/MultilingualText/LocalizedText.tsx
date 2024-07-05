@@ -17,42 +17,35 @@ const LocalizedText = (props: ILocalizedTextProps) => {
     const [htmlValue, setHtmlValue] = useState<JSX.Element>();
     const [textCSS, setTextCSS] = useState<object>({});
 
-    const replaceNewlinesWithinQuotes=(input: string): string =>{
-        return input.replace(/("[^"]*")/g, (match, quotedString) => {
-            return quotedString.replace(/\n/g, '\\n');
-        });
-    }
-    const tryParseJson = (jsonString: string): parsedResult => {
-        try {
-            const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
+    const getValueLocalized = (textValue: string, lcid: string): string => {
 
-            // Handle non-exception-throwing cases:
-            // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-            // but... JSON.parse(null) returns 'null', and typeof null === "object",
-            // so we must check for that, too.
-            if (o && typeof o === "object" && o !== null) {
-                return {
-                    value: o,
-                    isJson: true
+        const replaceNewlinesWithinQuotes = (input: string): string => {
+            return input.replace(/("[^"]*")/g, (match, quotedString) => {
+                return quotedString.replace(/\n/g, '\\n');
+            });
+        }
+        const tryParseJson = (jsonString: string): string | object => {
+            try {
+                const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
+
+                // Handle non-exception-throwing cases:
+                // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+                // but... JSON.parse(null) returns 'null', and typeof null === "object",
+                // so we must check for that, too.
+                if (o && typeof o === "object" && o !== null) {
+                    return o;
                 }
+            } catch (e) {
+                //this is very much expected because the text parameter doesn't have to be a JSON string
+                //console.log(e);
             }
-        } catch (e) {
-            //this is very much expected because the text parameter doesn't have to be a JSON string
-            //console.log(e);
+            return jsonString;
         }
 
-        return {
-            value: jsonString,
-            isJson: false
-        };
-
-    }
-
-    const getValueLocalized = (textValue: string): string => {
         const parsedResult = tryParseJson(textValue);
-        if (parsedResult.isJson &&
-            Object.keys(parsedResult.value).includes(props.lcid)) {
-            return parsedResult.value[props.lcid as keyof typeof parsedResult.value];
+        if (typeof parsedResult === "object" &&
+            Object.keys(parsedResult).includes(lcid)) {
+            return parsedResult[lcid as keyof typeof parsedResult];
         }
         return textValue;
     }
@@ -66,9 +59,9 @@ const LocalizedText = (props: ILocalizedTextProps) => {
     }
 
     React.useEffect(() => {
-        const setHTML = (html: string) => {
+        const setHTML = (html: string, lcid:string) => {
             if(html === undefined || html === null || html==="") return;
-            const txtVal = getValueLocalized(html);
+            const txtVal = getValueLocalized(html, lcid);
             if (isHtml(txtVal)) {
                 setHtmlValue(parseHTML(txtVal));
             }
@@ -76,7 +69,7 @@ const LocalizedText = (props: ILocalizedTextProps) => {
                 setHtmlValue(<>{txtVal}</>);
             }
         }
-        setHTML(props.textValue);
+        setHTML(props.textValue, props.lcid);
 
     }, [props.textValue]);
 

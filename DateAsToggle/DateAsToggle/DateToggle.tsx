@@ -18,42 +18,35 @@ type parsedResult = {
 const DateToggle = (props: IDateToggleProps) => {
 
     const defaultChecked = props.value!==undefined && props.value!==null;
-    const replaceNewlinesWithinQuotes = (input: string): string => {
-        return input.replace(/("[^"]*")/g, (match, quotedString) => {
-            return quotedString.replace(/\n/g, '\\n');
-        });
-    }
-    const tryParseJson = (jsonString: string): parsedResult => {
-        try {
-            const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
+    const getValueLocalized = (textValue: string, lcid: string): string => {
 
-            // Handle non-exception-throwing cases:
-            // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-            // but... JSON.parse(null) returns 'null', and typeof null === "object",
-            // so we must check for that, too.
-            if (o && typeof o === "object" && o !== null) {
-                return {
-                    value: o,
-                    isJson: true
+        const replaceNewlinesWithinQuotes = (input: string): string => {
+            return input.replace(/("[^"]*")/g, (match, quotedString) => {
+                return quotedString.replace(/\n/g, '\\n');
+            });
+        }
+        const tryParseJson = (jsonString: string): string | object => {
+            try {
+                const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
+
+                // Handle non-exception-throwing cases:
+                // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+                // but... JSON.parse(null) returns 'null', and typeof null === "object",
+                // so we must check for that, too.
+                if (o && typeof o === "object" && o !== null) {
+                    return o;
                 }
+            } catch (e) {
+                //this is very much expected because the text parameter doesn't have to be a JSON string
+                //console.log(e);
             }
-        } catch (e) {
-            //this is very much expected because the text parameter doesn't have to be a JSON string
-            //console.log(e);
+            return jsonString;
         }
 
-        return {
-            value: jsonString,
-            isJson: false
-        };
-
-    }
-
-    const getValueLocalized = (textValue: string): string => {
         const parsedResult = tryParseJson(textValue);
-        if (parsedResult.isJson &&
-            Object.keys(parsedResult.value).includes(props.lcid)) {
-            return parsedResult.value[props.lcid as keyof typeof parsedResult.value];
+        if (typeof parsedResult === "object" &&
+            Object.keys(parsedResult).includes(lcid)) {
+            return parsedResult[lcid as keyof typeof parsedResult];
         }
         return textValue;
     }
@@ -67,7 +60,7 @@ const DateToggle = (props: IDateToggleProps) => {
             <IdPrefixProvider value="IDAPPS-DateToggle">
                 <FluentProvider theme={webLightTheme}>
                     <Switch
-                        label={getValueLocalized(props.label)}
+                        label={getValueLocalized(props.label, props.lcid)}
                         onChange={_onChange}
                         disabled={props.disabled}
                         checked={defaultChecked}

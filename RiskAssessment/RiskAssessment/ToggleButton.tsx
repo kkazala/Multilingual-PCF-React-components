@@ -1,11 +1,11 @@
-﻿import { ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
+﻿import { ToggleButton, Tooltip, makeStyles, tokens } from '@fluentui/react-components';
+import { CheckboxCheckedRegular, CheckboxUncheckedRegular } from '@fluentui/react-icons';
 // import * as AllIcons from '@fluentui/react-icons';
 // import { FluentIcon } from '@fluentui/react-icons';
 import * as React from 'react';
 
 export interface IButtonToggleProps {
     item: ComponentFramework.PropertyHelper.OptionMetadata
-    icon: string;
     checked?: boolean;
     onChange: (newValue: number | undefined) => void;
 }
@@ -40,17 +40,12 @@ const ButtonToggle = (props: IButtonToggleProps) => {
     const styles = useStyles();
 
 
-    // if (icon) {
-    //     const BtnIcon: FluentIcon = AllIcons[icon as keyof typeof AllIcons] as FluentIcon;
-    //     btnProps.icon = <BtnIcon />;
-    // }
-
     React.useEffect(() => {
 
         const btnProps: btnProperties = {
             text: props.item.Label,
             onClick: () => toggleChecked(props.item.Value),
-            className: props.checked ? styles.checked : styles.default,
+            className: styles.checked,
             appearance: props.checked ? "primary" : "outline",
         };
         setBtnProps(btnProps);
@@ -63,11 +58,14 @@ const ButtonToggle = (props: IButtonToggleProps) => {
 
     return (<>
         {btnProps &&
+        <Tooltip content={btnProps.text} relationship='description'>
             <ToggleButton
                 key={props.item.Value}
                 checked={checked}
+                icon={checked ? <CheckboxCheckedRegular /> : <CheckboxUncheckedRegular />}
                 {...btnProps}
-            >{btnProps.text}</ToggleButton>
+            ></ToggleButton>
+            </Tooltip>
             }
         </>
     );

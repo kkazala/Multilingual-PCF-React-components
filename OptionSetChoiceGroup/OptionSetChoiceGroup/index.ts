@@ -32,7 +32,7 @@ export class OptionSetChoiceGroup implements ComponentFramework.ReactControl<IIn
  * @returns ReactElement root react element for the control
  */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const { sourceControl, showHorizontal } = context.parameters;
+        const { sourceControl, showHorizontal, showInline, displayLabel } = context.parameters;
 
         let disabled = context.mode.isControlDisabled;
         let masked = false;
@@ -44,13 +44,15 @@ export class OptionSetChoiceGroup implements ComponentFramework.ReactControl<IIn
         return React.createElement(
             ChoiceRadioButtons, {
                 key:Date.now(),
-                label: sourceControl.attributes?.DisplayName ?? '',
+                label: displayLabel?.raw ?? '',
                 value: sourceControl.raw,
                 options: sourceControl.attributes?.Options ?? [],
+                showInline: showInline?.raw ?? false,
                 showHorizontal: showHorizontal?.raw ?? false,
                 onChange: this.onChange,
                 disabled: disabled,
                 masked: masked,
+                lcid: context.userSettings.languageId.toString()
         }
         );
     }

@@ -62,7 +62,7 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
             return options.map((item) => {
                 return (
                     <ButtonToggle
-                        key={item.Value}
+                        key={`${Date.now() }${item.Value}`}
                         item={item}
                         icon={iconMapping[item.Value]}
                         checked={item.Value == value}
@@ -88,14 +88,6 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
         }
     }, [props.options, props.configuration, props.value, props.disabled, props.masked]);
 
-
-    React.useEffect(() => {
-        setDisabled(props.disabled);
-    },[props.disabled]);
-
-    React.useEffect(() => {
-        setMasked(props.masked);
-    },[props.masked]);
 
     return (<IdPrefixProvider value="IDAPPS-OptionSetButtons">
         <FluentProvider theme={webLightTheme}>
