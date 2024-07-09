@@ -1,4 +1,6 @@
-import { FluentProvider, IdPrefixProvider, makeStyles, Text, webLightTheme } from '@fluentui/react-components';
+import { IGaugeChartSegment } from '@fluentui/react-charting';
+import { FluentProvider, IdPrefixProvider, makeStyles, Text, tokens, Tooltip, webLightTheme } from '@fluentui/react-components';
+import { ShieldFilled } from '@fluentui/react-icons';
 import * as React from 'react';
 import ChoiceOptionsButtonSet from './ChoiceOptionsButtonSet';
 
@@ -50,18 +52,40 @@ const useStyles = makeStyles({
     },
   },
   labelInline: {
-    minWidth: '120px',
-    marginInlineEnd: '4px',
-  },
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
 
+    '> span': {
+      marginInlineEnd: '4px',
+    }
+  },
+  labelVertical: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+
+    '> span':{
+      minWidth: '100px',
+      marginInlineEnd: '4px',
+      paddingBottom: '4px',
+      textAlign: 'center'
+    }
+  },
+  riskIcon: {
+    fontSize: "32px",
+  }
 });
 const RiskAssessmentPanel = (props: RiskAssessmentPanelProps):JSX.Element => {
   const styles = useStyles();
-  const { impactOptions, probabilityOptions, riskOptions, impactLabel, probabilityLabel, showInline, showRisk } = props;
+  const { impactOptions, probabilityOptions, riskOptions, impactLabel, probabilityLabel, showInline, labelInline,showRisk } = props;
   const [riskDefinition, setRiskDefinition] = React.useState<RiskDefinition | null>(null);
   const [impactVal, setImpactVal] = React.useState<number>(props.impactValue);
   const [probabilityVal, setProbabilityVal] = React.useState<number>(props.probabilityValue);
   const [riskVal, setRiskVal] = React.useState<number>(props.riskValue);
+  const [gaugeSegments, setGaugeSegments] = React.useState<IGaugeChartSegment[]>([]);
+  const [gaugeValue, setGaugeValue] = React.useState<number>(0);
+  const [color, setColor] = React.useState<string>(tokens.colorNeutralForeground3Hover);
 
   const [errMsg, setErrMsg] = React.useState<string>("");
 
@@ -73,7 +97,9 @@ const RiskAssessmentPanel = (props: RiskAssessmentPanelProps):JSX.Element => {
     setProbabilityVal(newValue ?? -1);
     props.onChange(impactVal, newValue ?? -1, riskVal);
   }
-
+  const getRiskLabelFromOptions = (val: number): string => {
+    return riskOptions.find((item) => item.Value === val)?.Label ?? ""
+  }
 
   React.useEffect(() => {
     const parseRiskDefinition = (riskDefinition: string): RiskDefinition | null => {
@@ -114,12 +140,21 @@ const RiskAssessmentPanel = (props: RiskAssessmentPanelProps):JSX.Element => {
         ? getRiskValueFromOptions(_risk)
         : -1;
     }
+    const setRiskColorFromOptions = (val: number): void => {
+      const color = riskOptions.find((item) => item.Value === val)?.Color ?? tokens.colorBrandBackground
+      setColor(color)
+    }
 
     if (riskDefinition && riskOptions.length > 0) {
       const risk = getCalculateRisk(impactVal, probabilityVal, riskDefinition);
       if (risk != riskVal){
-        setRiskVal(risk);
         props.onChange(impactVal, probabilityVal, risk);
+
+        setRiskVal(risk);
+        if (showInline) {
+          setRiskColorFromOptions(risk)
+        }
+
       }
     }
   }, [impactVal, probabilityVal, showRisk]);
@@ -127,7 +162,7 @@ const RiskAssessmentPanel = (props: RiskAssessmentPanelProps):JSX.Element => {
   return (<IdPrefixProvider value="IDAPPS-OptionSetChoiceGroup">
     <FluentProvider theme={webLightTheme} className={showInline ? styles.containerInline : styles.container} >
 
-      <div >
+      <div className={labelInline?styles.labelInline:styles.labelVertical}>
         {impactLabel && <Text >{impactLabel}</Text> }
         {impactOptions.length > 0 && <ChoiceOptionsButtonSet
                 key={`btnSet1${impactVal}_${probabilityVal}`}
@@ -139,7 +174,7 @@ const RiskAssessmentPanel = (props: RiskAssessmentPanelProps):JSX.Element => {
               />
           }
       </div>
-      <div >
+      <div className={labelInline ? styles.labelInline : styles.labelVertical}>
         {probabilityLabel && <Text >{probabilityLabel}</Text>}
         {probabilityOptions.length > 0 && <ChoiceOptionsButtonSet
                 key={`btnSet2${impactVal}_${probabilityVal}`}
@@ -154,8 +189,13 @@ const RiskAssessmentPanel = (props: RiskAssessmentPanelProps):JSX.Element => {
       {showRisk && riskVal != -1 && riskOptions.length > 0 &&
         <>
         {showInline
-          ? <>Risk</>
-          : <>Risk</>
+          ? <>
+            {riskVal != -1 && <Tooltip content={getRiskLabelFromOptions(riskVal)} relationship="description">
+              {/* FireFilled */}
+              <ShieldFilled className={styles.riskIcon}></ShieldFilled>
+            </Tooltip> }
+            </>
+          : <>Risk {riskVal}</>
         }
         </>
       }
