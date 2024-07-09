@@ -9,8 +9,9 @@
 
   <PropertyGroup>
     <Name>RiskAssessment</Name>
-    <ProjectGuid>0fa2d701-762c-420a-b2d9-eeff05f768d9</ProjectGuid>
+    <ProjectGuid>0f49784b-50d3-40e4-b2a9-cf62c7d499b0</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
+    <PcfBuildMode>production</PcfBuildMode>
   </PropertyGroup>
 
   <PropertyGroup>

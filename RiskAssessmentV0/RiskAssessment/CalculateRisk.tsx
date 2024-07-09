@@ -1,5 +1,6 @@
 ﻿import { GaugeChart, IGaugeChartSegment } from "@fluentui/react-charting";
-import { FluentProvider, IdPrefixProvider, makeStyles, Text, tokens, webLightTheme } from "@fluentui/react-components";
+import { FluentProvider, IdPrefixProvider, makeStyles, Text, tokens, Tooltip, webLightTheme } from "@fluentui/react-components";
+import { ShieldFilled } from "@fluentui/react-icons";
 import * as React from "react";
 import ButtonToggle from "./ToggleButton";
 
@@ -17,6 +18,8 @@ export type CalculateRiskProps = {
     riskProps: ControlProps;
     riskDefinition: string;
     onChange: (newImpact: number, newProbability: number, newRisk: number) => void;
+    showInline:boolean;
+    showRisk:boolean;
 }
 export type ControlProps = {
     disabled: boolean;
@@ -30,15 +33,27 @@ export type RiskDefinition = {
 }
 
 const useStyles = makeStyles({
+    //vertical
     container:{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'start',
+        '> :not(:first-child)': {
+            marginTop: '10px',
+        },
+    },
+    containerInline:{
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: tokens.colorBrandBackground2,
         '> :not(:first-child)': {
             marginTop: '0px',
             marginLeft: '15px',
         },
+    },
+    label:{
+        minWidth: '120px',
+        marginInlineEnd: '4px',
     },
     root: {
         display: 'flex',
@@ -56,10 +71,14 @@ const useStyles = makeStyles({
         '> *:not(.ms-StackItem)': {
             flexShrink: 1,
         },
+    },
+    riskIcon:{
+        fontSize: "32px",
     }
+
 });
 const CalculateRisk = (props: CalculateRiskProps) => {
-    const { impactOptions, probabilityOptions, riskOptions, impactLabel,probabilityLabel } = props;
+    const { impactOptions, probabilityOptions, riskOptions, impactLabel,probabilityLabel, showInline, showRisk } = props;
     const segmentSize = (10 / riskOptions.length);
     const styles = useStyles();
     const [impactVal, setImpactVal] = React.useState<number>(props.impactValue);
@@ -67,6 +86,7 @@ const CalculateRisk = (props: CalculateRiskProps) => {
     const [riskVal, setRiskVal] = React.useState<number>(props.riskValue);
     const [gaugeSegments,setGaugeSegments] = React.useState<IGaugeChartSegment[]>([]);
     const [gaugeValue, setGaugeValue] = React.useState<number>(0);
+    const [color, setColor] = React.useState<string>(tokens.colorNeutralForeground3Hover);
 
     const [errMsg, setErrMsg] = React.useState<string>("");
     const [impactBtns, setImpactBtns] = React.useState<JSX.Element[]>([]);
@@ -102,6 +122,10 @@ const CalculateRisk = (props: CalculateRiskProps) => {
     }
     const getRiskLabelFromOptions = (val: number): string => {
         return riskOptions.find((item) => item.Value === val)?.Label ?? ""
+    }
+    const setRiskColorFromOptions = (val: number): void => {
+        const color = riskOptions.find((item) => item.Value === val)?.Color ?? tokens.colorBrandBackground
+        setColor(color)
     }
     const renderChartValue = (_: [number, number]): string => {
         return "";
@@ -155,46 +179,57 @@ const CalculateRisk = (props: CalculateRiskProps) => {
                 setRiskVal(risk);
                 props.onChange(props.impactValue, props.probabilityValue, risk);
             }
-            setGaugeValue(risk * segmentSize + segmentSize / 2);
-
+            if(showInline){
+                setRiskColorFromOptions(risk)
+            }
+            else{
+                setGaugeValue(risk * segmentSize + segmentSize / 2);
+            }
         }
 
     }, [])
 
 
     return (<IdPrefixProvider value="IDAPPS-OptionSetChoiceGroup">
-        <FluentProvider theme={webLightTheme} className={styles.container} >
+        <FluentProvider theme={webLightTheme} className={showInline? styles.containerInline: styles.container} >
             {impactBtns && impactBtns.length > 0 &&
-                <div>
-                <Text>{impactLabel}</Text>
+                <div className={styles.containerInline}>
+                    <Text className={showInline ?"":styles.label}>{impactLabel}</Text>
                 <div className={styles.root}>
                     {impactBtns}
                 </div >
             </div>
             }
             {probabilityBtns && probabilityBtns.length > 0 &&
-                <div>
-                    <Text>{probabilityLabel}</Text>
+                <div className={styles.containerInline}>
+                    <Text className={showInline ? "":styles.label }>{probabilityLabel}</Text>
                 <div className={styles.root}>
                     {probabilityBtns}
                 </div >
                 </div>
             }
-
-            {gaugeValue&& gaugeSegments.length > 0 &&(
-                <GaugeChart
-                    width={140}
-                    height={55}
-                    segments={gaugeSegments}
-                    chartValue={gaugeValue}
-                    hideMinMax={true}
-                    hideTooltip={true}
-                    // sublabel={getRiskLabelFromOptions(riskVal)}
-                    chartValueFormat={renderChartValue}
-                    hideLegend={true}
-                ></GaugeChart>
-
+            {showRisk &&<>
+            { showInline && riskVal!= -1 && (<span className={styles.riskIcon}>
+                <Tooltip content={getRiskLabelFromOptions(riskVal)} relationship="description">
+                        {/* FireFilled */}
+                    <ShieldFilled style={{color:color}}></ShieldFilled>
+                </Tooltip>
+            </span>
             )}
+            {!showInline && gaugeValue&& gaugeSegments.length > 0 &&(
+                        <GaugeChart
+                            width={260}
+                            height={136}
+                            segments={gaugeSegments}
+                            chartValue={gaugeValue}
+                            hideMinMax={true}
+                            hideTooltip={true}
+                            sublabel={getRiskLabelFromOptions(riskVal)}
+                            chartValueFormat={renderChartValue}
+                            hideLegend={true}
+                        ></GaugeChart>
+            )}
+            </>}
         </FluentProvider>
     </IdPrefixProvider >)
 }

@@ -8,10 +8,6 @@ export interface ILocalizedTextProps {
     disabled: boolean;
     masked: boolean;
 }
-type parsedResult = {
-    value: string | object;
-    isJson: boolean;
-}
 
 const LocalizedText = (props: ILocalizedTextProps) => {
     const [htmlValue, setHtmlValue] = useState<JSX.Element>();
