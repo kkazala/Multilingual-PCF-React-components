@@ -8,10 +8,9 @@
   <Import Project="$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.props" Condition="Exists('$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.props')" />
 
   <PropertyGroup>
-    <Name>RiskAssessment</Name>
-    <ProjectGuid>0f49784b-50d3-40e4-b2a9-cf62c7d499b0</ProjectGuid>
+    <Name>ResizeableText</Name>
+    <ProjectGuid>28e822ca-b661-4ec3-9ad9-da37189dbf38</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
-    <PcfBuildMode>production</PcfBuildMode>
   </PropertyGroup>
 
   <PropertyGroup>

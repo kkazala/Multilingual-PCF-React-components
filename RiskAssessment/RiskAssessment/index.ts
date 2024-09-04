@@ -39,12 +39,12 @@ export class RiskAssessment implements ComponentFramework.ReactControl<IInputs, 
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const { impact, impactLabel, probability, probabilityLabel, risk, risksDefinitions, showInline, labelInline, showRisk } = context.parameters;
+        const { impact, impactLabel, probability, probabilityLabel, risk, riskLabel, risksDefinitions, showInline, labelInline, showRisk } = context.parameters;
         const disabled = context.mode.isControlDisabled;
         this.isRiskBound = risk !== undefined && risk.type !== null;
 
         const getControlProps = (sourceControl: ComponentFramework.PropertyTypes.OptionSetProperty, disabled: boolean): ControlProps => {
-            if (sourceControl.security) return {
+            if (sourceControl!== undefined && sourceControl.security) return {
                 disabled: disabled || !sourceControl.security.editable,
                 masked: !sourceControl.security.readable
             }
@@ -53,25 +53,41 @@ export class RiskAssessment implements ComponentFramework.ReactControl<IInputs, 
                 masked: false
             }
         }
+        const ensureBoolean=(value:string|boolean):boolean=>{
+
+            if(typeof value === "boolean") return value;
+
+            if(value==="true" || value==="True" || value==="1") return true;
+
+            return false;
+
+        }
 
         return React.createElement(
+            //bool arguments are returned as strings in edit mode
+
+
             RiskAssessmentPanel, {
-                impactLabel: impactLabel.raw ?? "",
-                impactOptions: impact.attributes?.Options ?? [],
-                impactValue: impact.raw ?? -1,
+                impactLabel: impactLabel?.raw ??"",
+                impactOptions: impact?.attributes?.Options ?? [],
+                impactValue: impact?.raw ?? -1,
                 impactProps: getControlProps(impact, disabled),
-                probabilityLabel: probabilityLabel.raw ?? "",
-                probabilityOptions: probability.attributes?.Options ?? [],
-                probabilityValue: probability.raw ?? -1,
+                probabilityLabel: probabilityLabel?.raw ?? "",
+                probabilityOptions: probability?.attributes?.Options ?? [],
+                probabilityValue: probability?.raw ?? -1,
                 probabilityProps: getControlProps(probability, disabled),
-                riskOptions: risk.attributes?.Options ?? [],
-                riskValue: risk.raw ?? -1,
+                riskOptions: risk?.attributes?.Options ?? [],
+                riskValue: risk?.raw ?? -1,
+                riskLabel: riskLabel?.raw ?? "",
                 riskProps: getControlProps(risk, disabled),
                 onChange: this.onChange,
-                riskDefinition: risksDefinitions.raw ?? "",
-                showInline: showInline.raw ?? true,
-                showRisk: showRisk.raw ?? true,
-                labelInline: labelInline.raw ?? true,
+                riskDefinition: risksDefinitions?.raw ?? "",
+
+                showInline: ensureBoolean(showInline.raw),
+                showRisk: ensureBoolean(showRisk.raw),
+                labelInline: ensureBoolean(labelInline.raw),
+
+                lcid: context.userSettings.languageId.toString(),
             }
         );
     }

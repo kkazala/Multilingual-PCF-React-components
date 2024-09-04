@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="idapps" constructor="ResizeableField" version="1.0.0" display-name-key="Resizeable Textarea" description-key="ResizeableField description" control-type="virtual" >
+    <external-service-usage enabled="false">
+    </external-service-usage>
+   <property name="sourceControl" display-name-key="Field" description-key="Source field" of-type="Multiple" usage="bound" required="true"/>
+    <property name="placeholderHint" display-name-key="Placeholder Text" description-key="Text displayed when the area is empty. Plain text, no HTML." of-type="Multiple" usage="input" required="false"/>
+    <property name="sizeChoice" display-name-key="Size Choice" description-key="Default height of the text area" of-type="Enum" usage="input" required="false"  default-value="1">
+      <value name="80" display-name-key="Height 80px">0</value>
+      <value name="100" display-name-key="Height 100px">1</value>
+      <value name="200" display-name-key="Height 200px">2</value>
+      <value name="300" display-name-key="Height 300px">3</value>
+      <value name="450" display-name-key="Height 450px">4</value>
+      <value name="550" display-name-key="Height 550px">5</value>
+      <value name="650" display-name-key="Height 650px">6</value>
+    </property>
+    <resources>
+      <code path="index.ts" order="1"/>
+      <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+
+  </control>
+</manifest>

@@ -46,6 +46,7 @@ const useStyles = makeStyles({
 });
 
 const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
+  const {disabled,masked}= props
   const [selectedKey, setSelectedKey] = React.useState<string | undefined>(undefined);
   const [options, setOptions] = React.useState<RadioProps[]>([]);
   const [isReady, setIsReady] = React.useState<boolean>(false);
@@ -125,8 +126,15 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
       {label &&
         <Label >{label}</Label >
       }
-      {isReady &&
-          <RadioGroup className={isInline ?styles.alignRight:""} value={selectedKey} onChange={onChange} layout={isHorizontal ?"horizontal":"vertical"}>
+      {masked &&<>***</>}
+      {isReady && !masked &&
+          <RadioGroup
+            className={isInline ?styles.alignRight:""}
+            value={selectedKey}
+            onChange={onChange}
+            layout={isHorizontal ?"horizontal":"vertical"}
+            disabled={disabled}
+            >
           {options.map((option) => {
             return <Radio key={option.value} {...option} className={styles.nowrap} />
           })}

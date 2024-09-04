@@ -11,6 +11,7 @@
     <Name>RiskAssessment</Name>
     <ProjectGuid>0fa2d701-762c-420a-b2d9-eeff05f768d9</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
+    <PcfBuildMode>production</PcfBuildMode>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="idapps" constructor="RiskAssessment" version="0.0.1" display-name-key="RiskAssessment" description-key="RiskAssessment description" control-type="virtual" >
+  <control namespace="idapps" constructor="RiskAssessment" version="1.0.0" display-name-key="Risk Assessment" description-key="RiskAssessment description" control-type="virtual" >
     <external-service-usage enabled="false">
-      <!--UNCOMMENT TO ADD EXTERNAL DOMAINS
-      <domain></domain>
-      <domain></domain>
-      -->
     </external-service-usage>
      <property name="impact" display-name-key="Impact field" description-key="Choice field with options for Impact. Used to calculate risk." of-type="OptionSet" usage="bound" required="true" />
     <property name="impactLabel" display-name-key="Impact Label" description-key="Label for impact field. " of-type="Multiple"  usage="input" required="false" />
@@ -13,6 +9,7 @@
     <property name="probabilityLabel" display-name-key="Probability Label" description-key="Label for probability field. " of-type="Multiple"  usage="input" required="false" />
 
     <property name="risk" display-name-key="Risk" description-key="Risk Field" of-type="OptionSet" usage="bound" required="false"/>
+    <property name="riskLabel" display-name-key="Risk Label" description-key="Label for risk field. " of-type="Multiple"  usage="input" required="false" />
     <property name="showRisk" display-name-key="Display risk icon" description-key="Display risk icon using color" of-type="TwoOptions" usage="input" required="false" default-value='true' />
     <property name="showInline" display-name-key="Display fields inline" description-key="Display field controls inline" of-type="TwoOptions" usage="input" required="false" default-value='true' />
     <property name="labelInline" display-name-key="Display labels inline" description-key="Display labels inline" of-type="TwoOptions" usage="input" required="false" default-value='true' />
