@@ -4,7 +4,7 @@ import { IInputs, IOutputs } from "./generated/ManifestTypes";
 
 const SmallFormFactorMaxWidth = 350;
 
-export class OptionSetButtonsv9 implements ComponentFramework.ReactControl<IInputs, IOutputs> {
+export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private context: ComponentFramework.Context<IInputs>;
     private notifyOutputChanged: () => void;
     selectedValue: number | undefined;
