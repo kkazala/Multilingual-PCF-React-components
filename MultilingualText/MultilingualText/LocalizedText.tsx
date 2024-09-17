@@ -1,16 +1,23 @@
 ﻿import * as React from 'react';
 import { useState } from 'react';
 
+export const requiredLevelsEnum = {
+    None: 0,
+    Recommended: 3,
+    Required: 2
+};
 export interface ILocalizedTextProps {
     textValue: string;
     textCSS: string;
     lcid: string;
     disabled: boolean;
     masked: boolean;
+    required: number;
 }
 
 const LocalizedText = (props: ILocalizedTextProps) => {
     const [htmlValue, setHtmlValue] = useState<JSX.Element>();
+    const [htmlRequired, setHtmlRequired] = useState<JSX.Element>();
     const [textCSS, setTextCSS] = useState<object>({});
 
     const getValueLocalized = (textValue: string, lcid: string): string => {
@@ -55,6 +62,20 @@ const LocalizedText = (props: ILocalizedTextProps) => {
     }
 
     React.useEffect(() => {
+        if (props.required === requiredLevelsEnum.Required) {
+            //add , font-weight:400 to the style to make it normal
+
+            setHtmlRequired(<span style={{ color: 'rgb(188, 47, 50)', fontWeight: 400}}>*</span>);
+        }
+        else if (props.required === requiredLevelsEnum.Recommended) {
+            setHtmlRequired(<span id="id-required-icon" aria-hidden="true" style={{ color: 'rgb(15, 108, 189)', fontWeight: 400 }}>⁺</span>);
+        }
+        else {
+            setHtmlRequired(<></>);
+        }
+    },[props.required]);
+
+    React.useEffect(() => {
         const setHTML = (html: string, lcid:string) => {
             if(html === undefined || html === null || html==="") return;
             const txtVal = getValueLocalized(html, lcid);
@@ -78,7 +99,7 @@ const LocalizedText = (props: ILocalizedTextProps) => {
 
     return (<>
         {!props.masked && <span style={textCSS}>
-            {htmlValue}
+            {htmlValue} {htmlRequired}
         </span>
         }
     </>

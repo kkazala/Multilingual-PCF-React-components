@@ -2,10 +2,10 @@ import * as React from "react";
 import LocalizedText from "./LocalizedText";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 
-
 export class MultilingualText implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private notifyOutputChanged: () => void;
     private context: ComponentFramework.Context<IInputs>;
+
     /**
      * Empty constructor.
      */
@@ -30,7 +30,7 @@ export class MultilingualText implements ComponentFramework.ReactControl<IInputs
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
         this.context = context;
-        this.context.mode.trackContainerResize(true);
+        // this.context.mode.trackContainerResize(true);
     }
 
     /**
@@ -48,9 +48,9 @@ export class MultilingualText implements ComponentFramework.ReactControl<IInputs
         const show = isAuthoringMode
                     || !isBound  // always show if not bound and has text
                     || sourceControl.raw === true; //if bound, check the value true/false
-
         let disabled = context.mode.isControlDisabled;
         let masked = false;
+
 
         //If bound to control, check security
         if (isBound &&  sourceControl.security) {
@@ -61,11 +61,13 @@ export class MultilingualText implements ComponentFramework.ReactControl<IInputs
         return show && !masked
             ? React.createElement(
                 LocalizedText, {
+                key: Date.now().toString(),
                 textValue: textValue?.raw ?? '',
                 textCSS: textCSS?.raw ?? '',
                 lcid: context.userSettings.languageId.toString(),
                 disabled: disabled,
                 masked: masked,
+                    required: sourceControl.attributes?.RequiredLevel ?? 0
             }
             )
             : React.createElement(React.Fragment, null);

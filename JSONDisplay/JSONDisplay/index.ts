@@ -6,9 +6,6 @@ export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOu
     private notifyOutputChanged: () => void;
     private context: ComponentFramework.Context<IInputs, IOutputs>;
 
-    /**
-     * Empty constructor.
-     */
     constructor() { }
 
     /**
@@ -56,6 +53,7 @@ export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOu
         return show && !masked
             ? React.createElement(
                 PrintJSON,{
+                    key:Date.now().toString(),
                     jsonVal: jsonVal?.raw ?? "",
                 }
             )
