@@ -7,7 +7,7 @@ This control displays form validation information in a list form:
 ## Configuration
 To configure the control, make sure you have two additional fields added to the form:
 - `Yes/no` field which defines whether the control will display the values and
-- hidden `Multiple lines of text` column used as a source of the component; you donshould hide this field, because its value is dynamically set using `validateForm` function, and it's used only as a source for the component.
+- hidden `Multiple lines of text` column used as a source of the component; you may want to hide this field, because its value is dynamically set using `validateForm` function, and it is used only as a source for the component.
 
 Associate the `Display JSON` component with the `Yes/no` field, and bind the `Print JSON` property to the `text` field
 
