@@ -5,10 +5,12 @@ import RiskAssessmentPanel, { ControlProps } from "./RiskAssessmentPanel";
 export class RiskAssessment implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private context: ComponentFramework.Context<IInputs>;
     private notifyOutputChanged: () => void;
-    selectedImpact: number | undefined;
-    selectedProbability: number | undefined;
-    selectedRisk: number | undefined;
-    isRiskBound:boolean;
+    private selectedImpact: number | undefined;
+    private selectedProbability: number | undefined;
+    private selectedRisk: number | undefined;
+    private isRiskBound:boolean;
+    private componentKey: number= new Date().getTime();
+
 
     constructor() { }
 
@@ -26,6 +28,7 @@ export class RiskAssessment implements ComponentFramework.ReactControl<IInputs, 
         this.context = context;
         this.context.mode.trackContainerResize(true);
     }
+
     public onChange = (newImpact: number | undefined, newProbability: number | undefined, newRisk: number | undefined): void => {
         this.selectedImpact = newImpact;
         this.selectedProbability = newProbability;
@@ -42,6 +45,7 @@ export class RiskAssessment implements ComponentFramework.ReactControl<IInputs, 
         const { impact, impactLabel, probability, probabilityLabel, risk, riskLabel, risksDefinitions, showInline, labelInline, showRisk } = context.parameters;
         const disabled = context.mode.isControlDisabled;
         this.isRiskBound = risk !== undefined && risk.type !== null;
+        this.componentKey = new Date().getTime();
 
         const getControlProps = (sourceControl: ComponentFramework.PropertyTypes.OptionSetProperty, disabled: boolean): ControlProps => {
             if (sourceControl!== undefined && sourceControl.security) return {
@@ -66,8 +70,8 @@ export class RiskAssessment implements ComponentFramework.ReactControl<IInputs, 
         return React.createElement(
             //bool arguments are returned as strings in edit mode
 
-
             RiskAssessmentPanel, {
+                key: this.componentKey,
                 impactLabel: impactLabel?.raw ??"",
                 impactOptions: impact?.attributes?.Options ?? [],
                 impactValue: impact?.raw ?? -1,

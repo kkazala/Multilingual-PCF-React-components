@@ -3,7 +3,6 @@ import PrintJSON from "./PrintJSON";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 
 export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOutputs> {
-    private notifyOutputChanged: () => void;
     private context: ComponentFramework.Context<IInputs, IOutputs>;
 
     constructor() { }
@@ -13,14 +12,10 @@ export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOu
      * Data-set values are not initialized here, use updateView.
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to property names defined in the manifest, as well as utility functions.
      * @param notifyOutputChanged A callback method to alert the framework that the control has new outputs ready to be retrieved asynchronously.
-     * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling 'setControlState' in the Mode interface.
      */
     public init(
-        context: ComponentFramework.Context<IInputs>,
-        notifyOutputChanged: () => void,
-        state: ComponentFramework.Dictionary
+        context: ComponentFramework.Context<IInputs>
     ): void {
-        this.notifyOutputChanged = notifyOutputChanged;
         this.context = context;
         this.context.mode.trackContainerResize(true);
     }
