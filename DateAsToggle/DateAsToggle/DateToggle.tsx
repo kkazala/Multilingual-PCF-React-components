@@ -10,10 +10,6 @@ export interface IDateToggleProps{
     lcid: string;
     masked: boolean;
 }
-type parsedResult = {
-    value: string | object;
-    isJson: boolean;
-}
 
 const DateToggle = (props: IDateToggleProps) => {
 

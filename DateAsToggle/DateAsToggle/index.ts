@@ -49,7 +49,6 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
         );
     }
 
-
     onChange = (newValue: boolean | undefined): void => {
         this.date = newValue ? new Date() : undefined;
         this.notifyOutputChanged();
@@ -62,7 +61,7 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
      */
     public getOutputs(): IOutputs {
         return {
-            sourceControl: this.date ,
+            sourceControl: this.date
         }
     }
 
