@@ -11,7 +11,7 @@
     <Name>DateAsToggle</Name>
     <ProjectGuid>007b3332-1b45-4bd0-999e-c602491768ff</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
-    <PcfBuildMode>production</PcfBuildMode>
+    <!-- <PcfBuildMode>production</PcfBuildMode> -->
   </PropertyGroup>
 
   <PropertyGroup>

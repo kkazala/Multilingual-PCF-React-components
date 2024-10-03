@@ -3,7 +3,6 @@ import DateToggle from "./DateToggle";
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 
 export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IOutputs> {
-    private context: ComponentFramework.Context<IInputs>;
     private notifyOutputChanged: () => void;
     private date: Date | undefined;
 
@@ -17,13 +16,10 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
      * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling 'setControlState' in the Mode interface.
      */
     public init(
-        context: ComponentFramework.Context<IInputs>,
-        notifyOutputChanged: () => void,
-        state: ComponentFramework.Dictionary
+        _: ComponentFramework.Context<IInputs>,
+        notifyOutputChanged: () => void
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        this.context = context;
-        this.context.mode.trackContainerResize(true);
     }
 
     /**
@@ -52,6 +48,8 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
             }
         );
     }
+
+
     onChange = (newValue: boolean | undefined): void => {
         this.date = newValue ? new Date() : undefined;
         this.notifyOutputChanged();
