@@ -4,7 +4,7 @@
     <external-service-usage enabled="false">
 
     </external-service-usage>
-    <property name="sourceControl" display-name-key="Visibility (optional)" description-key="This column is used to manage controls visibility. Use Hide in UI, setVisible() or column security. Changes to this control will trigger refresh." of-type="SingleLine.Text"  usage="bound" required="false" />
+    <property name="sourceControl" display-name-key="Visibility (optional)" description-key="This column is used to manage controls visibility. Use Hide in UI, setVisible() or column security. Changes to this control will trigger refresh." of-type="TwoOptions" usage="bound" required="false" />
     <property name="jsonVal" display-name-key="Print JSON" description-key="" of-type="Multiple"  usage="input" required="false"/>
 
     <resources>

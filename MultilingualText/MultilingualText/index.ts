@@ -67,7 +67,7 @@ export class MultilingualText implements ComponentFramework.ReactControl<IInputs
                 lcid: context.userSettings.languageId.toString(),
                 disabled: disabled,
                 masked: masked,
-                    required: sourceControl.attributes?.RequiredLevel ?? 0
+                required: sourceControl.attributes?.RequiredLevel ?? 0
             }
             )
             : React.createElement(React.Fragment, null);

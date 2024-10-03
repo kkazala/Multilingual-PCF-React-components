@@ -33,8 +33,8 @@ export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOu
         const isBound = sourceControl !== undefined && sourceControl.type !== null;
 
         const show = isAuthoringMode
-            || !isBound     // always show if not bound
-            || sourceControl?.raw !== ""; //if bound, check the value true/false
+            || !isBound  // always show if not bound and has text
+            || sourceControl.raw === true; //if bound, check the value true/false
 
         let disabled = context.mode.isControlDisabled;
         let masked = false;
