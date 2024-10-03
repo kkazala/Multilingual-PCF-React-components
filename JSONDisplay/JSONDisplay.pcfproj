@@ -11,7 +11,7 @@
     <Name>FormValidation</Name>
     <ProjectGuid>9fa70e96-cd3f-4269-800b-edcc0a3ed093</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
-    <!-- <PcfBuildMode>production</PcfBuildMode> -->
+    <PcfBuildMode>production</PcfBuildMode>
   </PropertyGroup>
 
   <PropertyGroup>
