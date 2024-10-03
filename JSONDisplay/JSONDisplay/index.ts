@@ -17,7 +17,6 @@ export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOu
         context: ComponentFramework.Context<IInputs>
     ): void {
         this.context = context;
-        this.context.mode.trackContainerResize(true);
     }
 
     /**
