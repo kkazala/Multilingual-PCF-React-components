@@ -5,7 +5,6 @@
     </external-service-usage>
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <property name="sourceControl" display-name-key="Field" description-key="Source field" of-type="OptionSet" usage="bound" required="true"/>
-    <property name="configuration" display-name-key="Configuration_Name" description-key="Configuration_Desc" of-type="Multiple" usage="input" required="false"/>
     <resources>
       <code path="index.ts" order="1"/>
       <platform-library name="React" version="16.8.6" />

@@ -5,7 +5,7 @@
     </external-service-usage>
     <property name="sourceControl" display-name-key="Field" description-key="Source Field" of-type="OptionSet" usage="bound" required="true"/>
     <property name="showHorizontal" display-name-key="Display horizontally" description-key="Displays options horizontally" of-type="TwoOptions" usage="input" required="false" default-value='true'/>
-    <property name="showInline" display-name-key="Display inline" description-key="Display label and values incline" of-type="TwoOptions" usage="input" required="false" default-value='false'/>
+    <property name="showInline" display-name-key="Display inline" description-key="Display label and values inline" of-type="TwoOptions" usage="input" required="false" default-value='false'/>
     <property name="displayLabel" display-name-key="Display text" description-key="Label. " of-type="Multiple"  usage="input" required="false" />
 
     <resources>

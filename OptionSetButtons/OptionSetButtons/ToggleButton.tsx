@@ -1,12 +1,9 @@
 ﻿import { ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
 import * as Color from 'color';
-// import * as AllIcons from '@fluentui/react-icons';
-// import { FluentIcon } from '@fluentui/react-icons';
 import * as React from 'react';
 
 export interface IButtonToggleProps {
     item: ComponentFramework.PropertyHelper.OptionMetadata
-    icon: string;
     checked?: boolean;
     onChange: (newValue: number | undefined) => void;
 }
@@ -16,7 +13,6 @@ type btnProperties = {
     onClick: () => void;
     className:string;
     appearance:  "primary" | "outline" | "subtle" | "transparent" | undefined;
-    icon?: JSX.Element;
 }
 const useStyles = makeStyles({
     checked: {
@@ -32,7 +28,7 @@ const getContrastingColor = (colorRGBA: string) => {
     const color = Color(colorRGBA);
     //for background white
     if (color.isLight()) {
-        return tokens.colorNeutralForegroundOnBrand;
+        return tokens.colorNeutralForeground1;
     }
     else if (color.isDark() && color.alpha() < 0.5) {
         return tokens.colorNeutralForegroundOnBrand;

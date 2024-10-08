@@ -7,7 +7,6 @@ export interface IChoicesButtonsProps {
     label: string;
     value: number | null;
     options: ComponentFramework.PropertyHelper.OptionMetadata[];
-    configuration: string | null;
     onChange: (newValue: number | undefined) => void;
     disabled: boolean;
     masked: boolean;
@@ -37,34 +36,29 @@ const useStyles = makeStyles({
 const ChoicesButtons = (props: IChoicesButtonsProps) => {
 
     const [selectedLabel, setSelectedLabel] = useState<string>("");
-    const [disabled, setDisabled] = useState<boolean>(props.disabled);
-    const [masked, setMasked] = useState<boolean>(props.masked);
-    const [error, setError] = useState<string | undefined>();
-
     const [buttons,setButtons] = useState<JSX.Element[]>([]);
     const styles = useStyles();
 
     React.useEffect(() => {
 
-        const getIconMapping = (iconMapJSON: string): Record<number, string> => {
-            let iconMap: Record<number, string> = {};
-            if(iconMapJSON!==""){
-                try{
-                    iconMap = JSON.parse(iconMapJSON);
-                }
-                catch(e){
-                    setError(`Invalid configuration`);
-                }
-            }
-            return iconMap;
-        }
-        const getButtons = (options: ComponentFramework.PropertyHelper.OptionMetadata[], value: number | null,iconMapping: Record<number, string>) => {
+        // const getIconMapping = (iconMapJSON: string): Record<number, string> => {
+        //     let iconMap: Record<number, string> = {};
+        //     if(iconMapJSON!==""){
+        //         try{
+        //             iconMap = JSON.parse(iconMapJSON);
+        //         }
+        //         catch(e){
+        //             console.log(`Invalid configuration`);
+        //         }
+        //     }
+        //     return iconMap;
+        // }
+        const getButtons = (options: ComponentFramework.PropertyHelper.OptionMetadata[], value: number | null) => {
             return options.map((item) => {
                 return (
                     <ButtonToggle
                         key={`${Date.now() }${item.Value}`}
                         item={item}
-                        icon={iconMapping[item.Value]}
                         checked={item.Value == value}
                         onChange={props.onChange}
                     />
@@ -81,12 +75,12 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
             setSelectedLabel(currentValue);
 
         }else{
-            const iconMapping = getIconMapping(props.configuration ?? '');
-            const _buttons = getButtons(props.options, props.value, iconMapping);
+            // const iconMapping = getIconMapping(props.configuration ?? '');
+            const _buttons = getButtons(props.options, props.value );
 
             setButtons(_buttons);
         }
-    }, [props.options, props.configuration, props.value, props.disabled, props.masked]);
+    }, [props.options, props.value, props.disabled, props.masked]);
 
 
     return (<IdPrefixProvider value="IDAPPS-OptionSetButtons">

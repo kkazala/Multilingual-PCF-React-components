@@ -16,12 +16,10 @@ export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs
      * Data-set values are not initialized here, use updateView.
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to property names defined in the manifest, as well as utility functions.
      * @param notifyOutputChanged A callback method to alert the framework that the control has new outputs ready to be retrieved asynchronously.
-     * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling 'setControlState' in the Mode interface.
      */
     public init(
         context: ComponentFramework.Context<IInputs>,
-        notifyOutputChanged: () => void,
-        state: ComponentFramework.Dictionary
+        notifyOutputChanged: () => void
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
         this.context = context;
@@ -34,7 +32,7 @@ export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const { sourceControl, configuration } = context.parameters;
+        const { sourceControl } = context.parameters;
 
         let disabled = context.mode.isControlDisabled;
         let masked = false;
@@ -49,7 +47,6 @@ export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs
                 label: sourceControl.attributes?.DisplayName??'',
                 value: sourceControl.raw,
                 options: sourceControl.attributes?.Options??[],
-                configuration: configuration?.raw ??'',
                 onChange: this.onChange,
                 disabled: disabled,
                 masked: masked,

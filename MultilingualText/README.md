@@ -1,22 +1,23 @@
 ﻿# Multilingual text
 
-In model-driven applications, static text can be displayed in two ways:
+The **Multilingual Text** component allows flexible display of static text in model-driven apps by associating it with a form field. It is a flexible alternative to Web Resources for displaying localized, dynamic text.
 
-- By adding a Web Resource
-- By associating a custom component with a control on the form
+- **Dynamic height**: Automatically adjusts height based on content, using only the space required.
+- **Visibility control**: Text visibility can be controlled dynamically, based on form state (e.g., only showing text on new forms) or other field values.
 
-One drawback of using Web Resources is that their height must be predefined and will not adjust according to the content.
+## Key Features
 
-In contrast, using custom components offers greater flexibility. This approach ensures that only the necessary space for the text is utilized, while also allowing you to control text visibility based on the values or visibility of associated controls. You can use this method to always display certain text, while showing other text only for new (unsaved) forms or depending on the values of other controls.
-
-This control enables you to specify different text for various supported languages and apply formatting. It also adheres to the source control's configuration, considering whether column security is enabled and whether the field is marked as Business required, Business recommended, or optional.
+- **Multilingual support**: Displays text in different languages, based on user settings.
+- **Text formatting**: Supports basic formatting for improved readability.
+- **Field configuration**: Honors field settings like Business Required, Business Recommended, or Optional.
+- **Column security**: If column security is enabled, the text is hidden but still takes up space. Use business rules or JavaScript to prevent empty rows.
 
 # Confguration
 
-To configure the control, make sure you have an additional field added to the form:
-- `Yes/no` field which defines whether the control will display the values
+To configure the component, ensure  an additional column isadded to the form:
+- `Yes/no` column which defines whether the component will display the text
 
-Associate the `Multilingual Static Text` component with the `Yes/no` field, add text to the Text property (either simple text, or a json for multilingual support) and CSS style to the Text Style.
+Associate the `Multilingual Static Text` component with the `Yes/no` column, add text to the Text property (either simple text, or a json for multilingual support) and CSS style to the Text Style.
 
 The following configuration:
 
@@ -33,7 +34,7 @@ Remember that just like in the case of out-of-the-box controls you need to refre
 
 ## Visibility
 
-The visibility of the control and the value of the `Yes/no` field both determine whether the summary is shown.
+The visibility of the control and the value of the `Yes/no` column both determine whether the summary is shown.
 
 However, there's a distinction: if the control is visible but its value is set to `false`, the summary won't be displayed, but the control will still take up space, appearing as an empty row. If this is the only control in a section, the section will remain visible.
 

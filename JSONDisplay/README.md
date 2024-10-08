@@ -1,53 +1,62 @@
 ﻿# Display JSON
 
-This control displays form validation information in a list form:
+Thw **Display JSON** component  is designed to display form validation information in a list format, providing clear feedback to users about validation errors or issues. This component offers flexibility through the use of additional columns for controlling both visibility and content display.
 
 ![alt text](./images/summary.png)
 
-## Configuration
-To configure the control, make sure you have two additional fields added to the form:
-- `Yes/no` field which defines whether the control will display the values and
-- hidden `Multiple lines of text` column used as a source of the component; you may want to hide this field, because its value is dynamically set using `validateForm` function, and it is used only as a source for the component.
+## How It Works
 
-Associate the `Display JSON` component with the `Yes/no` field, and bind the `Print JSON` property to the `text` field
+### Component Setup
 
-![alt text](image.png)
+- The `Yes/No` column is associated with the component to control its visibility.
+- The `Print JSON` property is bound to the **hidden** `Multiple lines of text` column, which stores the validation messages in JSON format.
 
-Use the `validateForm` function provided below to validate the form, and dynamically update the field value
+### Visibility and Flexibility
+
+- The component’s visibility is controlled separately from its content, allowing for more granular control over when the validation summary should appear.
+
+The column's value (`Yes/No`) determines whether the summary is displayed.
+
+- If the column is set to visible, but the value is false, the validation summary won’t be shown, though the component will still occupy space in the form (appearing as an empty row).
+
+- To fully hide the component, you must set the column to hidden. This can be achieved through column properties, business rules, or JavaScript.
+
+Associate the `Display JSON` component with the `Yes/no` column, and bind the `Print JSON` property to the `Multiple lines of text` column:
+
+![alt text](./images/config.png)
+
+## Dynamic Updates
+Use the `validateForm` function (example below) to validate the form and dynamically update the value in the `Multiple lines of text` column based on validation outcomes. This allows you to control the validation summary, depending on the form's state.
 
 ```javascript
-this.onHideShowValidation = function (executionContext) {
+
     var formContext = executionContext.getFormContext();
-    const show = formContext.getAttribute("YESNO_CONTROL_LOGICAL_NAME").getValue();
+    const show = formContext.getAttribute("YESNO_COLUMN_LOGICAL_NAME").getValue();
     if(show){
         const validateResults = validateForm(formContext, [], []);
         if (validateResults.length > 0) {
-            formContext.getAttribute("TEXT_CONTROL_LOGICAL_NAME").setValue(JSON.stringify(validateResults));
+            formContext.getAttribute("TEXT_COLUMN_LOGICAL_NAME").setValue(JSON.stringify(validateResults));
         }
     }
     else{
-        formContext.getAttribute("TEXT_CONTROL_LOGICAL_NAME").setValue(null);
+        formContext.getAttribute("TEXT_COLUMN_LOGICAL_NAME").setValue(null);
     }
-}
 ```
 
-For a more realistic example, you can initiate form validation in the `On Tab State Change` event of a `Sign Off` tab to inform the user about any missing fields. Then, in the "On Save" event of the form, clear the contents of this control to prevent the data from being stored in Dataverse.
+A practical use case for this component is when validating a form on a **Sign Off** tab to inform users of any missing or invalid fields:
 
-
-## Visibility
-
-The visibility of the control and the value of the `Yes/no` field both determine whether the summary is shown.
-
-However, there's a distinction: if the control is visible but its value is set to `false`, the summary won't be displayed, but the control will still take up space, appearing as an empty row. If this is the only control in a section, the section will remain visible.
-
-Only by hiding the control - using a business rule or JavaScript - will the space not be allocated.
+- **Initiate Validation in the On Tab State Change Event**:
+When a user navigates to the Sign Off tab, you can trigger the `validateForm` function in the `On Tab State Change` event.
+This function dynamically populates the hidden `Multiple lines of text` column with missing or invalid fields, and sets the `Yes/No` column value to display the validation summary.
+- **Clear Validation on Save**: To prevent storing validation data in Dataverse, clear the contents of the hidden `Multiple lines of text` column in the `On Save` event of the form.
+This ensures that no validation data is persisted once the form is saved, maintaining a clean data record.
 
 ## Set JSON value
 
 ### validateForm function
 
 ```javascript
-/** Parses form and lists empty fields with "Busines required" or "Busines recommended" levels.
+/** Parses form and lists empty columns with "Busines required" or "Busines recommended" levels.
  * Omits tabs and sections defined in "skipTabs" and "skipSections"
  *
  * @param {*} formContext : formContext
@@ -137,4 +146,4 @@ Make sure to use the following schema.
 ]
 ```
 
-If the control isn't displaying the contents, remove any trailing commas from the end of the array, and test the string you provided by using `JSON.parse()` in your browser console.
+If the component doesn't display the contents, remove any trailing commas from the end of the array, and test the string you provided by using `JSON.parse()` in your browser console.
