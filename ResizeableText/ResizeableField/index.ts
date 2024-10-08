@@ -44,7 +44,7 @@ export class ResizeableField implements ComponentFramework.ReactControl<IInputs,
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const { sourceControl, placeholderHint,  sizeChoice } = context.parameters;
+        const { sourceControl, placeholderHint, resizeChoice, height, maxHeight } = context.parameters;
 
         if(this.triggerRerender===false){
             this.triggerRerender=true;  //reset the flag to ensure that the control re-renders when the text is updated by the model-driven app
@@ -53,19 +53,21 @@ export class ResizeableField implements ComponentFramework.ReactControl<IInputs,
             this.key = Date.now().toString(); //update the key value to force the control to re-render
         }
 
-
         let disabled = context.mode.isControlDisabled;
         let masked = false;
         if (sourceControl.security) {
             disabled = disabled || !sourceControl.security.editable;
             masked = !sourceControl.security.readable;
         }
+
         return React.createElement(
             ResizeableText,{
                 key: this.key,
                 textValue: sourceControl?.raw || "",
                 placeHolderText: placeholderHint?.raw || "",
-                sizeChoice: sizeChoice?.raw || "0",
+                resizeChoice: resizeChoice?.raw || "0",
+                height: height?.raw || 100,
+                maxHeight: maxHeight?.raw || 650,
                 disabled,
                 masked,
                 lcid: context.userSettings.languageId.toString(),

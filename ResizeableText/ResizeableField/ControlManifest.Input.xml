@@ -5,14 +5,11 @@
     </external-service-usage>
    <property name="sourceControl" display-name-key="Field" description-key="Source field" of-type="Multiple" usage="bound" required="true"/>
     <property name="placeholderHint" display-name-key="Placeholder Text" description-key="Text displayed when the area is empty. Plain text, no HTML." of-type="Multiple" usage="input" required="false"/>
-    <property name="sizeChoice" display-name-key="Size Choice" description-key="Default height of the text area" of-type="Enum" usage="input" required="false"  default-value="1">
-      <value name="80" display-name-key="Height 80px">0</value>
-      <value name="100" display-name-key="Height 100px">1</value>
-      <value name="200" display-name-key="Height 200px">2</value>
-      <value name="300" display-name-key="Height 300px">3</value>
-      <value name="450" display-name-key="Height 450px">4</value>
-      <value name="550" display-name-key="Height 550px">5</value>
-      <value name="650" display-name-key="Height 650px">6</value>
+    <property name="height" display-name-key="Textarea height" description-key="Initial height of the text area" of-type="Whole.None" usage="input" required="true" default-value="100" />
+    <property name="maxHeight" display-name-key="Maximum height" description-key="Maximum height of the text area. Defaults to 650px if not defined." of-type="Whole.None" usage="input" required="false" default-value="650" />
+    <property name="resizeChoice" display-name-key="Resize" description-key="Which direction the Textarea is allowed to be resized" of-type="Enum" usage="input" required="false" default-value="1">
+      <value name="none" display-name-key="none">0</value>
+      <value name="vertical" display-name-key="vertical">1</value>
     </property>
     <resources>
       <code path="index.ts" order="1"/>

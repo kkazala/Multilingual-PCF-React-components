@@ -4,67 +4,45 @@ import * as React from "react";
 export type ResizeableTextProps = {
     textValue: string;
     placeHolderText: string;
-    sizeChoice: string;
+    resizeChoice: string;
+    height: number;
+    maxHeight: number;
     disabled: boolean;
     masked: boolean;
     lcid: string;
     onChange: (newValue: string) => void;
 
 }
+
+type ResizeChoices = "none" | "vertical";
+
+
 const useStyles = makeStyles({
     container: {
         width: '100%',
-    },
-    textarea0: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '80px !important',
-        }
-    },
-    textarea1: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '100px !important',
-        }
-    }, textarea2: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '200px !important',
-        }
-    }, textarea3: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '300px !important',
-        }
-    }, textarea4: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '450px !important',
-        }
-    }, textarea5: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '550px !important',
-        }
-    }, textarea6: {//span
-        width: '100%',
-        '> *': { //textarea
-            maxHeight: '650px !important',
-            minHeight: '650px !important',
-        }
-    },
-
+    }
 });
 
 const ResizeableText = (props: ResizeableTextProps): JSX.Element => {
     const styles = useStyles();
-    const { textValue, placeHolderText, sizeChoice,disabled, masked, lcid, onChange } = props;
+    const { textValue, placeHolderText, disabled, masked, lcid, height, maxHeight, resizeChoice, onChange } = props;
+
+    const textAreaHeightStyle = React.useMemo(() => ({
+        ['minHeight']: `${height}px`,
+        ["maxHeight"]: `${maxHeight}px`
+    }), [height, maxHeight])
+
+    const getResizeChoice = (resizeChoice: string): ResizeChoices => {
+        switch (resizeChoice) {
+            case "0":
+                return "none";
+            case "1":
+                return "vertical";
+            default:
+                return "none";
+        }
+    }
+
     const getValueLocalized = (textValue: string, lcid: string): string => {
 
         const replaceNewlinesWithinQuotes = (input: string): string => {
@@ -97,39 +75,18 @@ const ResizeableText = (props: ResizeableTextProps): JSX.Element => {
         }
         return textValue;
     }
-    const getClassName = (sizeChoice: string): string => {
-        switch (sizeChoice) {
-            case "0":
-                return styles.textarea0;
-            case "1":
-                return styles.textarea1;
-            case "2":
-                return styles.textarea2;
-            case "3":
-                return styles.textarea3;
-            case "4":
-                return styles.textarea4;
-            case "5":
-                return styles.textarea5;
-            case "6":
-                return styles.textarea6;
-            default:
-                return styles.textarea0;
-        }
-    }
-
 
     return (<IdPrefixProvider value="IDAPPS-ResizeableTextArea" >
         <FluentProvider theme={webLightTheme} className={styles.container} >
-            <Textarea
-                resize="vertical"
-                placeholder={getValueLocalized(placeHolderText, lcid)}
-                defaultValue={masked? "***":textValue}
-                onChange={(_, data) => onChange(data?.value ?? "")}
-                className={getClassName(sizeChoice)}
-                disabled={disabled}
-            />
-
+                <Textarea
+                resize={getResizeChoice(resizeChoice)}
+                    placeholder={getValueLocalized(placeHolderText, lcid)}
+                    defaultValue={masked? "***":textValue}
+                    onChange={(_, data) => onChange(data?.value ?? "")}
+                    className={styles.container}
+                    textarea={{ style: textAreaHeightStyle }}
+                    disabled={disabled}
+                />
         </FluentProvider>
     </IdPrefixProvider >
     );

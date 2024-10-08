@@ -10,7 +10,7 @@
     <Name>ResizeableText</Name>
     <ProjectGuid>28e822ca-b661-4ec3-9ad9-da37189dbf38</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
-    <PcfBuildMode>production</PcfBuildMode>
+    <!-- <PcfBuildMode>production</PcfBuildMode> -->
   </PropertyGroup>
 
   <PropertyGroup>
