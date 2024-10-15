@@ -18,7 +18,6 @@ Descriptions are highly configurable and can be tailored to fit various use case
 
 - **Multilingual Support**: The component fully supports multilingual configurations. The description text is displayed based on the detected user language, using the value from `context.userSettings.languageId.toString()`. This ensures that users see the appropriate text in their preferred language, enhancing the overall experience. Use `default` for fallback:
 
-![alt text](image.png)
 ![alt text](./images/config2.png)
 
 The field's value may be set programmatically with the following JavaScript:
