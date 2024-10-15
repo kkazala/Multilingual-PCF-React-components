@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="PCF" constructor="MultilingualText" version="1.0.0"
+    display-name-key="Multilingual Static Text"
+    description-key="Display static text with multilingual support" control-type="virtual">
+    <external-service-usage enabled="false">
+    </external-service-usage>
+      <type-group name="text">
+        <type>Multiple</type>
+        <type>SingleLine.Text</type>
+      </type-group>
+    <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
+    <property name="sourceControl" display-name-key="Visibility (optional)" description-key="This column is used to manage controls visibility. Use Hide in UI, setVisible() or column security. Changes to this control will trigger refresh." of-type="TwoOptions"  usage="bound" required="false" />
+    <property name="textValue" display-name-key="Text" description-key="Either text or JSON for multilingual support. Plain text and HTML are supported." of-type-group="text"  usage="input" required="false" />
+    <property name="textCSS" display-name-key="Text Style" description-key="Key of the resource"  of-type="SingleLine.Text" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+      <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="9.46.2" />
+    </resources>
+  </control>
+</manifest>
