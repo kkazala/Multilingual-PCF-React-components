@@ -80,7 +80,7 @@ const ResizeableText = (props: ResizeableTextProps): JSX.Element => {
         return textValue;
     }
 
-    return (<IdPrefixProvider value="IDAPPS-ResizeableTextArea" >
+    return (<IdPrefixProvider value="PCF-ResizeableTextArea" >
         <FluentProvider theme={webLightTheme} className={styles.container} >
                 <Textarea
                 resize={getResizeChoice(resizeChoice)}

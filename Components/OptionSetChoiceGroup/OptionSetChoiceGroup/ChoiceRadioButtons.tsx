@@ -124,7 +124,7 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
     props.onChange(data?.value ? parseInt(data.value) : undefined);
   }, []);
 
-  return (<IdPrefixProvider value="IDAPPS-OptionSetChoiceGroup">
+  return (<IdPrefixProvider value="PCF-OptionSetChoiceGroup">
     <FluentProvider theme={webLightTheme} className={styles.container}>
       <div className={isInline ? styles.horizontal : styles.root }>
       {label &&

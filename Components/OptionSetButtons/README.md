@@ -33,9 +33,9 @@ You may set the button's value via script, specifying correct numerical values a
 
 ```javascript
 //select a button
-formContext.getAttribute("idapps_choices").setValue(339870000);
+formContext.getAttribute("prefix_choices").setValue(339870000);
 //or clear selection
-formContext.getAttribute("idapps_choices").setValue(null);
+formContext.getAttribute("prefix_choices").setValue(null);
 ```
 
 Additional configuration options to **support multilingual** UI are **not required** in this case. Choices may be translated using native translation options available in Power Platform.

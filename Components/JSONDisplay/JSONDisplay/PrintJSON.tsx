@@ -90,7 +90,7 @@ const PrintJSON = (props: IPrintJSONProps) => {
 
     }, [props.jsonVal]);
 
-    return (<IdPrefixProvider value="IDAPPS-PrintJSON">
+    return (<IdPrefixProvider value="PCF-PrintJSON">
         <FluentProvider theme={webLightTheme}>
             <Tree >
                 {
