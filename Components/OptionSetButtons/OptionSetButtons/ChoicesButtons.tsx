@@ -83,7 +83,7 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
     }, [props.options, props.value, props.disabled, props.masked]);
 
 
-    return (<IdPrefixProvider value="IDAPPS-OptionSetButtons">
+    return (<IdPrefixProvider value="PCF-OptionSetButtons">
         <FluentProvider theme={webLightTheme}>
         {selectedLabel && <div>{selectedLabel}</div>}
         {buttons && buttons.length > 0 &&

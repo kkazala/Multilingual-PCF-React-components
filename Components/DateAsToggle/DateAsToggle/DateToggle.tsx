@@ -56,7 +56,7 @@ const DateToggle = (props: IDateToggleProps) => {
 
     return(<>
         {!props.masked &&
-            <IdPrefixProvider value="IDAPPS-DateToggle">
+            <IdPrefixProvider value="PCF-DateToggle">
                 <FluentProvider theme={webLightTheme}>
                     <Switch
                         label={getValueLocalized(props.label, props.lcid)}

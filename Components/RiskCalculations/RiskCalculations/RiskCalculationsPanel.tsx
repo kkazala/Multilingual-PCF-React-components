@@ -217,7 +217,7 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
   React.useEffect(() => {
   }, [showInline, labelInline]);
 
-  return (<IdPrefixProvider value="IDAPPS-OptionSetChoiceGroup">
+  return (<IdPrefixProvider value="PCF-OptionSetChoiceGroup">
     <FluentProvider theme={webLightTheme} className={showInline ? styles.containerInline : styles.container} >
       <div className={labelInline ? styles.labelInline : styles.labelVertical}>
         { (showInline  || impactLabel) &&
