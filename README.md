@@ -68,6 +68,8 @@ See more: [OptionSet Choice Group](./Components/OptionSetChoiceGroup/README.md)
 
 This component is designed for use with a `Multiple lines of text` table column. It renders a customizable, resizable text area input. The placeholder text for empty states is displayed in user's language.
 
+![](./img/resizabletext.png)
+
  [Resizable Text](./Components/ResizableText/README.md)
 
 ## Risk Calculations
