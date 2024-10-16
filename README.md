@@ -9,8 +9,8 @@
  - [Multilingual Text](README.md#multilingual-text)
  - [OptionSet Buttons](README.md#optionset-buttons)
  - [OptionSet Choice Group](README.md#optionset-choice-group)
- - [Resizeable Text](./Components/ResizeableText/README.md)
- - [Risk Calculations](./Components/RiskCalculations/README.md)
+ - [Resizable Text](README.md#resizable-text)
+ - [Risk Calculations](README.md#risk-calculations)
 
 ## Date As Toggle
 The **Date as Toggle** component is designed to interact with a `DateTime` column, offering an intuitive way to set or clear timestamps based on toggle actions.
