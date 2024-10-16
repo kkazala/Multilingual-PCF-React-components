@@ -52,7 +52,8 @@ export class OptionSetChoiceGroup implements ComponentFramework.ReactControl<IIn
                 onChange: this.onChange,
                 disabled: disabled,
                 masked: masked,
-                lcid: context.userSettings.languageId.toString()
+                lcid: context.userSettings.languageId.toString(),
+                required: sourceControl.attributes?.RequiredLevel ?? 0
         }
         );
     }

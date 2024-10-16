@@ -28,6 +28,10 @@ Associate the `Display JSON` component with the `Yes/no` column, and bind the `P
 
 ![alt text](./images/config.png)
 
+### Limitations
+
+Maximum 3 levels are supported, reflecting a structure of forms in model driven app: form's tabs, sections and fields within the sections.
+
 ## Dynamic Updates
 Use the `validateForm` function (example below) to validate the form and dynamically update the value in the `Multiple lines of text` column based on validation outcomes. This allows you to control the validation summary, depending on the form's state.
 
@@ -128,20 +132,20 @@ Make sure to use the following schema.
 ```json
 [
     {
-        "name":"Section 1",
+        "name":"Tab 1",
         "sections":[
             {
-                "name": "Bullet point 1",
+                "name": "Section 1",
                 "controls":[
-                    "Bullet point 1, text 1"
+                    "section 1, field 1"
                 ]
             },
             {
-                "name":"Bullet point 2",
+                "name":"Section 2",
                 "controls":[
-                    "Bullet point 2, text 1",
-                    "Bullet point 2, text 2",
-                    "Bullet point 2, text 3"
+                    "section 2, field 1",
+                    "section 2, field 2",
+                    "section 2, field 3"
                 ]
             }
         ]

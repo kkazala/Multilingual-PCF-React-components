@@ -1,17 +1,24 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="PCF" constructor="DateAsToggle" version="1.0.0" display-name-key="Date as toggle" description-key="DateAsToggle description" control-type="virtual" >
+  <control namespace="PCF" constructor="DateAsToggle" version="1.0.0"
+    display-name-key="Date as toggle"
+    description-key="Display Date field as Toggle, and set date to the current date when selected. Set to empty when unselected."
+    control-type="virtual" preview-image="img/preview.png">
     <external-service-usage enabled="false">
     </external-service-usage>
-      <type-group name="dates">
-        <type>DateAndTime.DateAndTime</type>
-        <type>DateAndTime.DateOnly</type>
+    <type-group name="dates">
+      <type>DateAndTime.DateAndTime</type>
+      <type>DateAndTime.DateOnly</type>
     </type-group>
-    <property name="sourceControl" display-name-key="Date field" description-key="Date field is displayed as a toggle, and set to current date/time when selected" of-type-group="dates" usage="bound" required="true" />
-    <property name="toggleLabel" display-name-key="Display text" description-key="Either text or JSON for multilingual support. Only plain text is supported." of-type="Multiple" usage="input" required="false" />
+    <property name="sourceControl" display-name-key="Date field"
+      description-key="Date field is displayed as a toggle, and set to current date/time when selected"
+      of-type-group="dates" usage="bound" required="true" />
+    <property name="toggleLabel" display-name-key="Display text"
+      description-key="Either text or JSON for multilingual support. Only plain text is supported."
+      of-type="Multiple" usage="input" required="false" />
 
     <resources>
-      <code path="index.ts" order="1"/>
+      <code path="index.ts" order="1" />
       <platform-library name="React" version="16.8.6" />
       <platform-library name="Fluent" version="9.46.2" />
     </resources>

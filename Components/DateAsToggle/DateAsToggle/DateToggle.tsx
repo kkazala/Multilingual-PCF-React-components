@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { ParsedHTML, Required, Utils } from "../../_Utils";
 
-export interface IDateToggleProps {
+export interface IDateToggleProps{
     label: string;
     value: Date | null;
     onChange: (newValue: boolean | undefined) => void;
@@ -14,13 +14,13 @@ export interface IDateToggleProps {
 
 const DateToggle = (props: IDateToggleProps) => {
     const [htmlValue, setHtmlValue] = React.useState<JSX.Element>();
-    const defaultChecked = props.value !== undefined && props.value !== null;
+    const defaultChecked = props.value!==undefined && props.value!==null;
 
     React.useEffect(() => {
         const setHTML = (html: string, lcid: string) => {
             if (html === undefined || html === null || html === "") return;
-            const txtVal = Utils.getValueLocalized(html, lcid);
-            if (Utils.isHtml(txtVal)) {
+            const txtVal = Utils.GetValueLocalized(html, lcid);
+            if (Utils.IsHtml(txtVal)) {
                 setHtmlValue(ParsedHTML(txtVal));
             }
             else {
@@ -29,20 +29,20 @@ const DateToggle = (props: IDateToggleProps) => {
         }
         setHTML(props.label, props.lcid);
 
-    }, []);
+    },[]);
 
     function _onChange(ev: React.ChangeEvent<HTMLInputElement>, data: SwitchOnChangeData) {
         props.onChange(ev.currentTarget.checked);
     }
 
-    return (<>
+    return(<>
         {!props.masked &&
             <IdPrefixProvider value="PCF-DateToggle">
                 <FluentProvider theme={webLightTheme}>
                     <Switch
                         label={{
                             children: () => (
-                                <div role="presentation" style={{ display: "flex", margin: "auto" }}>
+                                <div role="presentation" style={{display:"flex", margin:"auto"}}>
                                     {htmlValue}
                                     <Required required={props.required} />
                                 </div>

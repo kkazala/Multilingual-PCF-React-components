@@ -1,5 +1,6 @@
 ﻿import { FluentProvider, IdPrefixProvider, makeStyles, Textarea, webLightTheme } from '@fluentui/react-components';
 import * as React from "react";
+import { Utils } from "../../_Utils";
 
 export type ResizableTextProps = {
     textValue: string;
@@ -11,11 +12,9 @@ export type ResizableTextProps = {
     masked: boolean;
     lcid: string;
     onChange: (newValue: string) => void;
-
 }
 
 type ResizeChoices = "none" | "vertical";
-
 
 const useStyles = makeStyles({
     container: {
@@ -43,48 +42,11 @@ const ResizableText = (props: ResizableTextProps): JSX.Element => {
         }
     }
 
-    const getValueLocalized = (textValue: string, lcid: string): string => {
-
-        const replaceNewlinesWithinQuotes = (input: string): string => {
-            return input.replace(/("[^"]*")/g, (match, quotedString) => {
-                return quotedString.replace(/\n/g, '\\n');
-            });
-        }
-        const tryParseJson = (jsonString: string): string | object => {
-            try {
-                const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
-
-                // Handle non-exception-throwing cases:
-                // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-                // but... JSON.parse(null) returns 'null', and typeof null === "object",
-                // so we must check for that, too.
-                if (o && typeof o === "object" && o !== null) {
-                    return o;
-                }
-            } catch (e) {
-                //this is very much expected because the text parameter doesn't have to be a JSON string
-                //console.log(e);
-            }
-            return jsonString;
-        }
-
-        const parsedResult = tryParseJson(textValue);
-        if (typeof parsedResult === "object") {
-            if (Object.keys(parsedResult).includes(lcid)) {
-                return parsedResult[lcid as keyof typeof parsedResult];
-            }
-            else if (Object.keys(parsedResult).includes("default")) {
-                return parsedResult["default" as keyof typeof parsedResult];
-            }
-        }
-        return textValue;
-    }
-
     return (<IdPrefixProvider value="PCF-ResizableTextArea" >
         <FluentProvider theme={webLightTheme} className={styles.container} >
                 <Textarea
                 resize={getResizeChoice(resizeChoice)}
-                    placeholder={getValueLocalized(placeHolderText, lcid)}
+                placeholder={Utils.GetValueLocalized(placeHolderText, lcid)}
                     defaultValue={masked? "***":textValue}
                     onChange={(_, data) => onChange(data?.value ?? "")}
                     className={styles.container}

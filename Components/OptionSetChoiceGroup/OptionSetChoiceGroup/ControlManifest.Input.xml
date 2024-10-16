@@ -1,17 +1,25 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest>
   <control namespace="PCF" constructor="OptionSetChoiceGroup" version="1.0.0"
-    display-name-key="OptionSet Choice Group" description-key="OptionSetChoiceGroup description"
-    control-type="virtual">
+    display-name-key="OptionSet Choice Group"
+    description-key="Display OptionSet as a Choice Group, inline or below text, with choices displayed horizontally or vertically. Provides multilingual support."
+    control-type="virtual" preview-image="img/preview.png">
     <external-service-usage enabled="false">
     </external-service-usage>
-    <property name="sourceControl" display-name-key="Field" description-key="Source Field" of-type="OptionSet" usage="bound" required="true"/>
-    <property name="showHorizontal" display-name-key="Display horizontally" description-key="Displays options horizontally" of-type="TwoOptions" usage="input" required="false" default-value='true'/>
-    <property name="showInline" display-name-key="Display inline" description-key="Display label and values inline" of-type="TwoOptions" usage="input" required="false" default-value='false'/>
-    <property name="displayLabel" display-name-key="Display text" description-key="Either text or JSON for multilingual support. Only plain text is supported." of-type="Multiple" usage="input" required="false" />
+    <property name="sourceControl" display-name-key="Field" description-key="Source Field"
+      of-type="OptionSet" usage="bound" required="true" />
+    <property name="showHorizontal" display-name-key="Display horizontally"
+      description-key="Displays options horizontally" of-type="TwoOptions" usage="input"
+      required="false" default-value='true' />
+    <property name="showInline" display-name-key="Display inline"
+      description-key="Display label and values inline" of-type="TwoOptions" usage="input"
+      required="false" default-value='false' />
+    <property name="displayLabel" display-name-key="Display text"
+      description-key="Either text or JSON for multilingual support. Only plain text is supported."
+      of-type="Multiple" usage="input" required="false" />
 
     <resources>
-      <code path="index.ts" order="1"/>
+      <code path="index.ts" order="1" />
       <platform-library name="React" version="16.8.6" />
       <platform-library name="Fluent" version="9.46.2" />
     </resources>

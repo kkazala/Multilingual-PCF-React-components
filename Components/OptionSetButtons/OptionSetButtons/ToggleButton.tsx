@@ -1,6 +1,6 @@
 ﻿import { ToggleButton, makeStyles, tokens } from '@fluentui/react-components';
-import * as Color from 'color';
 import * as React from 'react';
+import { Utils } from "../../_Utils";
 
 export interface IButtonToggleProps {
     item: ComponentFramework.PropertyHelper.OptionMetadata
@@ -24,15 +24,6 @@ const useStyles = makeStyles({
         color: tokens.colorNeutralForeground1,
     },
 });
-const getContrastingColor = (colorRGBA: string) => {
-    const color = Color(colorRGBA);
-    if (color.isLight()) {
-        return color.darken(0.5)
-    }
-    else if (color.isDark()) {
-        return color.lighten(0.8)
-    }
-}
 
 const ButtonToggle = (props: IButtonToggleProps) => {
     const styles = useStyles();
@@ -46,13 +37,8 @@ const ButtonToggle = (props: IButtonToggleProps) => {
 
     const buttonBackgroundStyle = React.useMemo(() => ({
         ['backgroundColor']: props.item.Color,
-        ["color"]: getContrastingColor(props.item.Color),
+        ["color"]: Utils.GetContrastingColor(props.item.Color),
     }), [props.item.Color])
-
-    // if (icon) {
-    //     const BtnIcon: FluentIcon = AllIcons[icon as keyof typeof AllIcons] as FluentIcon;
-    //     btnProps.icon = <BtnIcon />;
-    // }
 
     React.useEffect(() => {
 

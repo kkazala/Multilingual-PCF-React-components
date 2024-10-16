@@ -1,5 +1,6 @@
 import { FluentProvider, IdPrefixProvider, Label, Radio, RadioGroup, RadioGroupOnChangeData, makeStyles, webLightTheme } from '@fluentui/react-components';
 import * as React from 'react';
+import { Required, Utils } from "../../_Utils";
 
 
 export interface IChoiceRadioButtonsProps {
@@ -12,6 +13,7 @@ export interface IChoiceRadioButtonsProps {
   disabled: boolean;
   masked: boolean;
   lcid: string;
+  required: number;
 }
 
 type RadioProps={
@@ -54,45 +56,7 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
   const [isHorizontal, setIsHorizontal] = React.useState<boolean>(false);
   const [isInline, setIsInline] = React.useState<boolean>(false);
 
-
   const styles= useStyles();
-
-  const getValueLocalized = (textValue: string, lcid:string): string => {
-
-    const replaceNewlinesWithinQuotes = (input: string): string => {
-      return input.replace(/("[^"]*")/g, (match, quotedString) => {
-        return quotedString.replace(/\n/g, '\\n');
-      });
-    }
-    const tryParseJson = (jsonString: string): string | object => {
-      try {
-        const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
-
-        // Handle non-exception-throwing cases:
-        // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-        // but... JSON.parse(null) returns 'null', and typeof null === "object",
-        // so we must check for that, too.
-        if (o && typeof o === "object" && o !== null) {
-          return o;
-        }
-      } catch (e) {
-        //this is very much expected because the text parameter doesn't have to be a JSON string
-        //console.log(e);
-      }
-      return jsonString;
-    }
-
-    const parsedResult = tryParseJson(textValue);
-    if (typeof parsedResult === "object") {
-      if (Object.keys(parsedResult).includes(lcid)) {
-        return parsedResult[lcid as keyof typeof parsedResult];
-      }
-      else if (Object.keys(parsedResult).includes("default")) {
-        return parsedResult["default" as keyof typeof parsedResult];
-      }
-    }
-    return textValue;
-  }
 
   React.useEffect(() => {
 
@@ -109,12 +73,10 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
     setIsHorizontal(props.showHorizontal === true || props.showHorizontal === "true");
     setIsInline(props.showInline === true || props.showInline === "true");
 
-    setLabel(getValueLocalized(props.label, props.lcid));
+    setLabel(Utils.GetValueLocalized(props.label, props.lcid));
 
     setSelectedKey(props.value?.toString());
-
-    const _options = getOptions(props.options, props.value);
-    setOptions(_options);
+    setOptions(getOptions(props.options, props.value));
 
     setIsReady(true);
 
@@ -127,9 +89,10 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
   return (<IdPrefixProvider value="PCF-OptionSetChoiceGroup">
     <FluentProvider theme={webLightTheme} className={styles.container}>
       <div className={isInline ? styles.horizontal : styles.root }>
-      {label &&
+        {label && <div role="presentation" style={{ display: "flex"}}>
         <Label >{label}</Label >
-      }
+        <Required required={props.required} />
+        </div>}
       {masked &&<>***</>}
       {isReady && !masked &&
           <RadioGroup

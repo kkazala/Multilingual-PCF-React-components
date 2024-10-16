@@ -15,7 +15,6 @@
   "dependencies": {
     "@fluentui/react-components": "9.46.2",
     "react": "16.8.6",
-    "color": "^4.2.3",
     "react-dom": "^16.14.0"
   },
   "devDependencies": {

@@ -41,18 +41,6 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
 
     React.useEffect(() => {
 
-        // const getIconMapping = (iconMapJSON: string): Record<number, string> => {
-        //     let iconMap: Record<number, string> = {};
-        //     if(iconMapJSON!==""){
-        //         try{
-        //             iconMap = JSON.parse(iconMapJSON);
-        //         }
-        //         catch(e){
-        //             console.log(`Invalid configuration`);
-        //         }
-        //     }
-        //     return iconMap;
-        // }
         const getButtons = (options: ComponentFramework.PropertyHelper.OptionMetadata[], value: number | null) => {
             return options.map((item) => {
                 return (
@@ -75,7 +63,6 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
             setSelectedLabel(currentValue);
 
         }else{
-            // const iconMapping = getIconMapping(props.configuration ?? '');
             const _buttons = getButtons(props.options, props.value );
 
             setButtons(_buttons);
