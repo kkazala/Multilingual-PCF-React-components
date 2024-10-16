@@ -1,11 +1,13 @@
 import { FluentProvider, IdPrefixProvider, makeStyles, Text, tokens, webLightTheme } from '@fluentui/react-components';
 import * as React from 'react';
+import { Required, Utils } from "../../_Utils";
 import ChoiceOptionsButtonSet from './ChoiceOptionsButtonSet';
 import RiskResult from './RiskResult';
 
 export type ControlProps = {
   disabled: boolean;
   masked: boolean;
+  required: number;
 }
 export type RiskCalculationsPanelProps = {
   impactLabel: string ;
@@ -109,43 +111,6 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
 
   const [errMsg, setErrMsg] = React.useState<string>("");
 
-  const getValueLocalized = (textValue: string, lcid: string): string => {
-
-    const replaceNewlinesWithinQuotes = (input: string): string => {
-      return input.replace(/("[^"]*")/g, (match, quotedString) => {
-        return quotedString.replace(/\n/g, '\\n');
-      });
-    }
-    const tryParseJson = (jsonString: string): string | object => {
-      try {
-        const o = JSON.parse(replaceNewlinesWithinQuotes(jsonString));
-
-        // Handle non-exception-throwing cases:
-        // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
-        // but... JSON.parse(null) returns 'null', and typeof null === "object",
-        // so we must check for that, too.
-        if (o && typeof o === "object" && o !== null) {
-          return o;
-        }
-      } catch (e) {
-        //this is very much expected because the text parameter doesn't have to be a JSON string
-        //console.log(e);
-      }
-      return jsonString;
-    }
-
-    const parsedResult = tryParseJson(textValue);
-    if (typeof parsedResult === "object") {
-      if (Object.keys(parsedResult).includes(lcid)) {
-        return parsedResult[lcid as keyof typeof parsedResult];
-      }
-      else if (Object.keys(parsedResult).includes("default")) {
-        return parsedResult["default" as keyof typeof parsedResult];
-      }
-    }
-    return textValue;
-  }
-
   const onChangeImpact = (newValue: number | undefined, probabilityVal: number, riskVal: number) => {
     setImpactVal(newValue ?? -1);
     props.onChange(newValue ?? -1, probabilityVal, riskVal);
@@ -173,9 +138,9 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
         }
       }
     }
-    setImpactLabel(getValueLocalized(props.impactLabel, lcid));
-    setProbabilityLabel(getValueLocalized(props.probabilityLabel, lcid));
-    setRiskLabel(getValueLocalized(props.riskLabel, lcid));
+    setImpactLabel(Utils.GetValueLocalized(props.impactLabel, lcid));
+    setProbabilityLabel(Utils.GetValueLocalized(props.probabilityLabel, lcid));
+    setRiskLabel(Utils.GetValueLocalized(props.riskLabel, lcid));
 
     setRiskDefinition(
       parseRiskDefinition(props.riskDefinition)
@@ -203,7 +168,6 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
         : -1;
     }
 
-
     if (riskDefinition && riskOptions.length > 0) {
       const risk = getCalculateRisk(impactVal, probabilityVal, riskDefinition);
       if (risk != riskVal) {
@@ -214,15 +178,13 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
     }
   }, [impactVal, probabilityVal, showRisk]);
 
-  React.useEffect(() => {
-  }, [showInline, labelInline]);
-
   return (<IdPrefixProvider value="PCF-OptionSetChoiceGroup">
     <FluentProvider theme={webLightTheme} className={showInline ? styles.containerInline : styles.container} >
       <div className={labelInline ? styles.labelInline : styles.labelVertical}>
-        { (showInline  || impactLabel) &&
+        <div role="presentation" style={{ display: "table-cell"}}>
           <Text >{impactLabel}</Text>
-        }
+          <Required required={props.impactProps.required} />
+        </div>
         {impactOptions.length > 0 && <ChoiceOptionsButtonSet
           key={`btnSet1${impactVal}_${probabilityVal}`}
           options={impactOptions}
@@ -234,7 +196,10 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
         }
       </div>
       <div className={labelInline ? styles.labelInline : styles.labelVertical}>
-        <Text >{probabilityLabel}</Text>
+        <div role="presentation" style={{ display: "table-cell" }}>
+          <Text >{probabilityLabel}</Text>
+          <Required required={props.probabilityProps.required} />
+        </div>
         {probabilityOptions.length > 0 && <ChoiceOptionsButtonSet
           key={`btnSet2${impactVal}_${probabilityVal}`}
           options={probabilityOptions}
@@ -252,6 +217,7 @@ const RiskCalculationsPanel = (props: RiskCalculationsPanelProps): JSX.Element =
                 riskLabel={riskLabel}
                 riskDescription={riskVal != -1  ? getRiskLabelFromOptions(riskVal):""}
                 riskColor={riskVal != -1 ? getRiskColorFromOptions(riskVal):undefined}
+                required={props.riskProps.required}
           />
         </div>
       }

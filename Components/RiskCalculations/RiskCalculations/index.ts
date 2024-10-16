@@ -47,13 +47,10 @@ export class RiskCalculations implements ComponentFramework.ReactControl<IInputs
         this.componentKey = new Date().getTime();
 
         const getControlProps = (sourceControl: ComponentFramework.PropertyTypes.OptionSetProperty, disabled: boolean): ControlProps => {
-            if (sourceControl!== undefined && sourceControl.security) return {
-                disabled: disabled || !sourceControl.security.editable,
-                masked: !sourceControl.security.readable
-            }
             return {
-                disabled,
-                masked: false
+                disabled: sourceControl.security?.editable?? false,
+                masked: (sourceControl !== undefined && sourceControl.security) ? !sourceControl.security.readable : false,
+                required: sourceControl.attributes?.RequiredLevel ?? 0
             }
         }
 

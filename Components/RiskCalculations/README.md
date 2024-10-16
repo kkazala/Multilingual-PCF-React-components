@@ -33,7 +33,7 @@ Import the **Risk calculations** component to the **Components** in your form an
 | `Impact label` | Either simple text or a JSON for multilingual support (see below) |
 | `Probability field` | Probability (Choice) column |
 | `Probability label` | Either simple text or a JSON for multilingual support (see below) |
-| `Risk` | Risk (Choice) column |
+| `Risk` | Risk (Choice) column. Its value will be updated by the component, based on the selected impact and probability and the risk definition provided in the configuration. |
 | `Display risk`  | `True/False` - define whether calculated risk should be displayed within the component |
 | `Risk label` | Either simple text or a JSON for multilingual support (see below). Used if `Display risk` is set to `True` |
 | `Risk Icon`| `SquareFilled` (default),`CircleFilled`,  `FireFilled`, `ShieldFilled` fluent UI icon, used to represent the risk. The icon uses the color associated with the risk level. Used if `Display risk` is set to `True`|

@@ -1,27 +1,49 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest>
     <control namespace="PCF" constructor="RiskCalculations" version="1.0.0"
         display-name-key="Risk Calculations"
         description-key="Calculate risk based on the impact and probability of an event."
-        control-type="virtual">
-    <external-service-usage enabled="false">
-    </external-service-usage>
-     <property name="impact" display-name-key="Impact field" description-key="Choice field with options for Impact. Used to calculate risk." of-type="OptionSet" usage="bound" required="true" />
-    <property name="impactLabel" display-name-key="Impact label" description-key="Label for impact field. Either text or JSON for multilingual support. Only plain text is supported." of-type="Multiple" usage="input" required="false" />
-    <property name="probability" display-name-key="Probability field" description-key="Choice field with options for Probability. Used to calculate risk." of-type="OptionSet" usage="bound" required="true" />
-    <property name="probabilityLabel" display-name-key="Probability label." description-key="Label for probability field. Either text or JSON for multilingual support. Only plain text is supported." of-type="Multiple" usage="input" required="false" />
-    <property name="risk" display-name-key="Risk" description-key="Risk field" of-type="OptionSet" usage="bound" required="true" />
-    <property name="showRisk" display-name-key="Display risk" description-key="Display calculated risk using icon" of-type="TwoOptions" usage="input" required="false" default-value='true' />
-    <property name="riskLabel" display-name-key="Risk label" description-key="Label for risk field. Either text or JSON for multilingual support. Only plain text is supported." of-type="Multiple" usage="input" required="false" />
-    <property name="riskIcon" display-name-key="Risk Icon" description-key="Choose which icon should be used to present risk. " of-type="Enum" usage="input" required="false" default-value="0">
-        <value name="SquareFilled" display-name-key="SquareFilled">0</value>
-        <value name="CircleFilled" display-name-key="CircleFilled">1</value>
-        <value name="FireFilled" display-name-key="FireFilled">2</value>
-        <value name="ShieldFilled" display-name-key="ShieldFilled">3</value>
-    </property>
-    <property name="showInline" display-name-key="Display fields inline" description-key="Display field controls inline" of-type="TwoOptions" usage="input" required="false" default-value='true' />
-    <property name="labelInline" display-name-key="Display labels inline" description-key="Display labels inline" of-type="TwoOptions" usage="input" required="false" default-value='true' />
-    <property name="risksDefinitions" display-name-key="Risk Definition" description-key="Enter JSON, using numerical values of each choice property" of-type="Multiple"  usage="input" required="false" default-value='{
+        control-type="virtual" preview-image="img/preview.png">
+        <external-service-usage enabled="false">
+        </external-service-usage>
+        <property name="impact" display-name-key="Impact field"
+            description-key="Choice field with options for Impact. Used to calculate risk."
+            of-type="OptionSet" usage="bound" required="true" />
+        <property name="impactLabel" display-name-key="Impact label"
+            description-key="Label for impact field. Either text or JSON for multilingual support. Only plain text is supported."
+            of-type="Multiple" usage="input" required="true" />
+        <property name="probability" display-name-key="Probability field"
+            description-key="Choice field with options for Probability. Used to calculate risk."
+            of-type="OptionSet" usage="bound" required="true" />
+        <property name="probabilityLabel" display-name-key="Probability label."
+            description-key="Label for probability field. Either text or JSON for multilingual support. Only plain text is supported."
+            of-type="Multiple" usage="input" required="true" />
+        <property name="risk" display-name-key="Risk" description-key="Risk field"
+            of-type="OptionSet" usage="bound" required="true" />
+        <property name="showRisk" display-name-key="Display risk"
+            description-key="Display calculated risk using icon" of-type="TwoOptions" usage="input"
+            required="false" default-value='true' />
+        <property name="riskLabel" display-name-key="Risk label"
+            description-key="Label for risk field. Either text or JSON for multilingual support. Only plain text is supported."
+            of-type="Multiple" usage="input" required="true" />
+        <property name="riskIcon" display-name-key="Risk Icon"
+            description-key="Choose which icon should be used to present risk. " of-type="Enum"
+            usage="input" required="false" default-value="0">
+            <value name="SquareFilled" display-name-key="SquareFilled">0</value>
+            <value name="CircleFilled" display-name-key="CircleFilled">1</value>
+            <value name="FireFilled" display-name-key="FireFilled">2</value>
+            <value name="ShieldFilled" display-name-key="ShieldFilled">3</value>
+        </property>
+        <property name="showInline" display-name-key="Display fields inline"
+            description-key="Display impact, probability and risk controls inline"
+            of-type="TwoOptions" usage="input" required="false" default-value='true' />
+        <property name="labelInline" display-name-key="Display labels inline"
+            description-key="Display labels inline" of-type="TwoOptions" usage="input"
+            required="false" default-value='true' />
+        <property name="risksDefinitions" display-name-key="Risk Definition"
+            description-key="Enter JSON, using numerical values of each choice property"
+            of-type="Multiple" usage="input" required="true"
+            default-value='{
     "2": [
         {
             "impact": 2,
@@ -64,13 +86,13 @@
             "probability": 2
         }
     ]
-}'/>
-    <resources>
-      <code path="index.ts" order="1"/>
-      <platform-library name="React" version="16.8.6" />
-      <platform-library name="Fluent" version="8.29.0" />
+}' />
+        <resources>
+            <code path="index.ts" order="1" />
+            <platform-library name="React" version="16.8.6" />
+            <platform-library name="Fluent" version="8.29.0" />
 
-    </resources>
+        </resources>
 
-  </control>
+    </control>
 </manifest>

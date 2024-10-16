@@ -1,12 +1,14 @@
 ﻿import { makeStyles, Text, tokens, Tooltip } from "@fluentui/react-components";
 import { CircleFilled, FireFilled, ShieldFilled, ShieldQuestionRegular, SquareFilled } from "@fluentui/react-icons";
 import React from "react";
+import { Required } from "../../_Utils";
 
 export type RiskResultProps = {
     riskIcon: string;
     riskLabel: string;
     riskDescription: string;
     riskColor: string | undefined;
+    required:number;
 }
 
 const useStyles = makeStyles({
@@ -45,7 +47,10 @@ const RiskResult = (props: RiskResultProps): JSX.Element => {
     }
 
     return <>
+        <div role="presentation" style={{ display: "table-cell" }}>
         <Text >{riskLabel}</Text>
+        <Required required={props.required} />
+        </div>
         <Tooltip content={riskDescription} relationship="description">
             <div>{renderIcon(riskIcon)}</div>
         </Tooltip>

@@ -1,7 +1,7 @@
 ﻿import { ToggleButton, Tooltip, makeStyles, tokens } from '@fluentui/react-components';
 import { CheckboxCheckedRegular, CheckboxUncheckedRegular } from '@fluentui/react-icons';
-import Color from 'color';
 import * as React from 'react';
+import { Utils } from "../../_Utils";
 
 export type ChoiceOptionsButtonProps= {
     item: ComponentFramework.PropertyHelper.OptionMetadata
@@ -29,17 +29,6 @@ const useStyles = makeStyles({
     },
 
 });
-const getContrastingColor = (colorRGBA: string) => {
-
-    const color = Color(colorRGBA);
-    if (color.isLight()) {
-        return color.darken(0.5)
-    }
-    else if (color.isDark()) {
-        return color.lighten(0.8)
-    }
-
-}
 
 const ChoiceOptionsButton = (props: ChoiceOptionsButtonProps):JSX.Element => {
     const styles = useStyles();
@@ -53,7 +42,7 @@ const ChoiceOptionsButton = (props: ChoiceOptionsButtonProps):JSX.Element => {
 
     const buttonBackgroundStyle = React.useMemo(() => ({
         ['backgroundColor']: props.item.Color ?? tokens.colorNeutralBackground3,
-        ["color"]: props.item.Color ? getContrastingColor(props.item.Color) : tokens.colorNeutralForeground3,
+        ["color"]: props.item.Color ? Utils.GetContrastingColor(props.item.Color) : tokens.colorNeutralForeground3,
     }), [props.item.Color])
 
     React.useEffect(() => {

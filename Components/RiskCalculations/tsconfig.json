@@ -5,5 +5,10 @@
             "node_modules/@types"
         ],
         "allowSyntheticDefaultImports": true,
-    }
+    },
+    "references": [
+        {
+            "path": "../_Utils"
+        }
+    ]
 }

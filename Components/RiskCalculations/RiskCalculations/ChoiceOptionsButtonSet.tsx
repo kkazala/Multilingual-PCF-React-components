@@ -14,7 +14,6 @@ const useStyle = makeStyles({
     }
 })
 
-
 const ChoiceOptionsButtonSet = (props: ChoiceOptionsButtonSetProps) => {
     const { options, value, onChange } = props;
     const styles= useStyle();
