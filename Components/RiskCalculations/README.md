@@ -37,8 +37,8 @@ Import the **Risk calculations** component to the **Components** in your form an
 | `Display risk`  | `True/False` - define whether calculated risk should be displayed within the component |
 | `Risk label` | Either simple text or a JSON for multilingual support (see below). Used if `Display risk` is set to `True` |
 | `Risk Icon`| `SquareFilled` (default),`CircleFilled`,  `FireFilled`, `ShieldFilled` fluent UI icon, used to represent the risk. The icon uses the color associated with the risk level. Used if `Display risk` is set to `True`|
-| `Display fields inline` | `True/False` - controls whether the Impact, Probability and Risk fields are displayes inline, or one below another. |
-| `Display labels inline`| `True/False` - controls whether field controls are displayed nexto to or above the choice fields |
+| `Display fields inline` | `True/False` - controls whether the Impact, Probability and Risk fields are displayed inline, or one below another. |
+| `Display labels inline`| `True/False` - controls whether field controls are displayed next to to or above the choice fields |
 | `Risk Definition`| JSON used to calculate risk level based on the available Impact and Probability fields. See [below](./README.md#risk-calculations) for details. |
 
 Hide the label of the table column to ensure correct displaying of the control. The **Impact** and **Probability** choices are displayed using either colors defined for each option, or a default color gray.
@@ -91,13 +91,13 @@ you would need to define the following associations:
 | Risk              | Impact             | Probability             |
 |-------------------|--------------------|-------------------------|
 | high `612830002`  | severe `612830002` | often `612830002`       |
-|                   | severe `612830002` | ocasionally `612830001` |
+|                   | severe `612830002` | occasionally  `612830001` |
 | medium `612830001`| severe `612830002` | seldom `612830000`      |
-|                   | medium `612830001` | ocassionaly `612830001` |
+|                   | medium `612830001` | occasionally  `612830001` |
 |                   | medium `612830001` | often `612830002`       |
 | low `612830000`   | medium `612830001` | seldom `612830000`      |
 |                   | low `612830000`    | seldom `612830000`      |
-|                   | low `612830000`    | ocassionaly `612830001` |
+|                   | low `612830000`    | occasionally  `612830001` |
 |                   | low `612830000`    | often `612830002`       |
 
 Which results in the following JSON:

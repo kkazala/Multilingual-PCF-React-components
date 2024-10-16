@@ -1,9 +1,9 @@
-﻿# Resizeable Textarea
+﻿# Resizable Textarea
 
 ![react](https://img.shields.io/badge/react-16.8.6-brightgreen?style=plastic)
  ![Fluent](https://img.shields.io/badge/@fluentui/react-8.29.0-brightgreen?style=plastic) ![Fluent](https://img.shields.io/badge/%40fluentui%2Freact--components-9.46.2-brightgreen?style=plastic)
 
-The **Resizeable Textarea** component is designed for use with a `Multiple lines of text` table column. It renders a customizable, resizeable text area input, featuring the following key capabilities:
+The **Resizable Textarea** component is designed for use with a `Multiple lines of text` table column. It renders a customizable, Resizable text area input, featuring the following key capabilities:
 
 - **Custom Empty Placeholder**: Supports a custom placeholder text for empty states, with the ability to configure multilingual options.
 - **Full-Width Layout**: The text area always takes up **100% of the available width**, ensuring it adapts to the size of its container.

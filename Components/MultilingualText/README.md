@@ -15,7 +15,7 @@ The **Multilingual Text** component allows flexible display of static text in mo
 - **Field configuration**: Honors field settings like Business Required, Business Recommended, or Optional.
 - **Column security**: If column security is enabled, the text is hidden but still takes up space. Use business rules or JavaScript to prevent empty rows.
 
-# Confguration
+# Configuration
 
 To configure the component, ensure  an additional column is added to the form:
 - `Yes/no` column which defines whether the component will display the text

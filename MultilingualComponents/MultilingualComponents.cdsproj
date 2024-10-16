@@ -56,7 +56,7 @@
     <ProjectReference Include="..\Components\MultilingualText\MultilingualText.pcfproj" />
     <ProjectReference Include="..\Components\OptionSetButtons\OptionSetButtons.pcfproj" />
     <ProjectReference Include="..\Components\OptionSetChoiceGroup\OptionSetChoiceGroup.pcfproj" />
-    <ProjectReference Include="..\Components\ResizeableText\ResizeableText.pcfproj" />
+    <ProjectReference Include="..\Components\ResizableText\ResizeableText.pcfproj" />
     <ProjectReference Include="..\Components\RiskCalculations\RiskAssessment.pcfproj" />
   </ItemGroup>
 

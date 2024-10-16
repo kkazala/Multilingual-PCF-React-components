@@ -55,11 +55,11 @@ Choices are rendered as radio-buttons either horizontally or vertically, and may
 
 See more: [OptionSet Choice Group](./Components/OptionSetChoiceGroup/README.md)
 
-## Resizeable Text
+## Resizable Text
 
-This component is designed for use with a `Multiple lines of text` table column. It renders a customizable, resizeable text area input. The placeholder text for empty states is displayed in user's language.
+This component is designed for use with a `Multiple lines of text` table column. It renders a customizable, resizable text area input. The placeholder text for empty states is displayed in user's language.
 
- [Resizeable Text](./Components/ResizeableText/README.md)
+ [Resizable Text](./Components/ResizableText/README.md)
 
 ## Risk Calculations
 

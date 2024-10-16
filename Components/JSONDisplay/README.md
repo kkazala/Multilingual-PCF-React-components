@@ -3,7 +3,7 @@
 ![react](https://img.shields.io/badge/react-16.8.6-brightgreen?style=plastic)
  ![Fluent](https://img.shields.io/badge/@fluentui/react-8.29.0-brightgreen?style=plastic) ![Fluent](https://img.shields.io/badge/%40fluentui%2Freact--components-9.46.2-brightgreen?style=plastic)
 
-Thw **Display JSON** component  is designed to display form validation information in a list format, providing clear feedback to users about validation errors or issues. This component offers flexibility through the use of additional columns for controlling both visibility and content display.
+The **Display JSON** component  is designed to display form validation information in a list format, providing clear feedback to users about validation errors or issues. This component offers flexibility through the use of additional columns for controlling both visibility and content display.
 
 ![alt text](./images/summary.png)
 
@@ -59,7 +59,7 @@ This ensures that no validation data is persisted once the form is saved, mainta
 ### validateForm function
 
 ```javascript
-/** Parses form and lists empty columns with "Busines required" or "Busines recommended" levels.
+/** Parses form and lists empty columns with "Business required" or "Business recommended" levels.
  * Omits tabs and sections defined in "skipTabs" and "skipSections"
  *
  * @param {*} formContext : formContext
