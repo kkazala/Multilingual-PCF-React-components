@@ -3,20 +3,20 @@
 ![react](https://img.shields.io/badge/react-16.8.6-brightgreen?style=plastic)
  ![Fluent](https://img.shields.io/badge/@fluentui/react-8.29.0-brightgreen?style=plastic) ![Fluent](https://img.shields.io/badge/%40fluentui%2Freact--components-9.46.2-brightgreen?style=plastic)
 
-The **Date as Toggle** component is designed to interact with a `DateTime` column, offering an intuitive way to set or clear timestamps based on toggle actions.
+The **Date as Toggle** component, associated with a `DateTime` table column, offering an intuitive way to set or clear timestamps based on toggle actions.
 
 ![alt text](./images/display.png)
 
-Below are the main features of this component:
+The features of this component:
 
-- **Toggle Functionality**: When the toggle is selected, the current date and time are automatically set in the associated DateTime column.
-When the toggle is unselected, the value is cleared, effectively removing the timestamp.
-- **Custom Descriptions**: This component allows you to define a description text that is separate from the field's label. This description provides additional context or guidance for users interacting with the toggle.
-Descriptions are highly configurable and can be tailored to fit various use cases, offering clarity without needing to adjust the main field label.
+- **Toggle Functionality**: When the toggle is **selected**, the current **date and time are automatically set** in the associated DateTime column.
+When the toggle is **unselected, the value is cleared**, effectively removing the timestamp.
+- **Custom Descriptions**: Use `Display text` property to define a description text that is separate from the field's label, to provide additional context and guidance for users interacting with the toggle.
+Descriptions are highly configurable and support plain text or html. Table column's `required` property is respected and either red asterisk `*`, or a blue plus `+` are displayed if the column is "Business required " or "Business recommended".
 
 ![alt text](./images/config1.png)
 
-- **Multilingual Support**: The component fully supports multilingual configurations. The description text is displayed based on the detected user language, using the value from `context.userSettings.languageId.toString()`. This ensures that users see the appropriate text in their preferred language, enhancing the overall experience. Use `default` for fallback:
+- **Multilingual Support**: The component fully supports multilingual configurations if the `Display text` is set to a JSON value. The toggle label is displayed based on the detected user language, or falls back to values defined in `default` if user's language is not supported.
 
 ![alt text](./images/config2.png)
 

@@ -44,7 +44,8 @@ export class DateAsToggle implements ComponentFramework.ReactControl<IInputs, IO
                 lcid: context.userSettings.languageId.toString(),
                 onChange: this.onChange,
                 disabled: disabled,
-                masked: masked
+                masked: masked,
+                required: sourceControl.attributes?.RequiredLevel ?? 0
             }
         );
     }

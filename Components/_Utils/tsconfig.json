@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "target": "es6",
+        "module": "es2020",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "lib": [
+            "ES2020",
+            "DOM"
+        ],
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "allowSyntheticDefaultImports": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "./node_modules"
+    ],
+    "references": []
+}
