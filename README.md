@@ -105,3 +105,4 @@ To build the solution in the release configuration, generating managed solution,
 msbuild /p:configuration=Release
 ```
 
+To install the solution containing all components, navigate to  `\MultilingualComponents\bin\Release` and import the `MultilingualComponents.zip` file.

@@ -47,7 +47,7 @@ const ChoicesButtons = (props: IChoicesButtonsProps) => {
                     <ButtonToggle
                         key={`${Date.now() }${item.Value}`}
                         item={item}
-                        checked={item.Value == value}
+                        checked={item.Value === value}
                         onChange={props.onChange}
                     />
                 );

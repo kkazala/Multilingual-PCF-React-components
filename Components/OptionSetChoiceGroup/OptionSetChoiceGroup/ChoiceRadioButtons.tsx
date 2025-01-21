@@ -66,7 +66,7 @@ const ChoiceRadioButtons = (props: IChoiceRadioButtonsProps) => {
           value: item.Value.toString(),
           label: item.Label,
           disabled: props.disabled,
-          checked: item.Value == value
+          checked: item.Value === value
         };
       })
     }

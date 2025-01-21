@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="PCF" constructor="MultilingualText" version="1.0.0"
+  <control namespace="PCF" constructor="MultilingualText" version="1.0.1"
     display-name-key="Multilingual Static Text"
     description-key="Display static text, either plain or HTML. Provides multilingual support."
     control-type="virtual" preview-image="img/preview.png">
