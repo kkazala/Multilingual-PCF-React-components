@@ -43,19 +43,19 @@ export class MultilingualText implements ComponentFramework.ReactControl<IInputs
         const { textValue, textCSS, sourceControl } = context.parameters;
 
         const isAuthoringMode = sourceControl === undefined; // in edit mode: all parameters if empty are 'undefined'
-        const isBound = sourceControl!== undefined && sourceControl.type!==null;
+        const isBound = sourceControl !== undefined && sourceControl.type !== null;
 
         const show = isAuthoringMode
-                    || !isBound  // always show if not bound and has text
-                    || sourceControl.raw === true; //if bound, check the value true/false
+            || !isBound  // always show if not bound and has text
+            || sourceControl?.raw === true; //if bound, check the value true/false
         let disabled = context.mode.isControlDisabled;
         let masked = false;
 
 
         //If bound to control, check security
-        if (isBound &&  sourceControl.security) {
-            disabled = disabled || !sourceControl.security.editable;
-            masked = !sourceControl.security.readable;
+        if (isBound && sourceControl?.security) {
+            disabled = disabled || !sourceControl?.security.editable;
+            masked = !sourceControl?.security.readable;
         }
 
         return show && !masked
@@ -67,7 +67,7 @@ export class MultilingualText implements ComponentFramework.ReactControl<IInputs
                 lcid: context.userSettings.languageId.toString(),
                 disabled: disabled,
                 masked: masked,
-                required: sourceControl.attributes?.RequiredLevel ?? 0
+                required: sourceControl?.attributes?.RequiredLevel ?? 0
             }
             )
             : React.createElement(React.Fragment, null);

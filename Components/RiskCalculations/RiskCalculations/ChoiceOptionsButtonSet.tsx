@@ -23,7 +23,7 @@ const ChoiceOptionsButtonSet = (props: ChoiceOptionsButtonSetProps) => {
                 <ChoiceOptionsButton
                     key={`btn${item.Value}`}
                     item={item}
-                    checked={item.Value == value}
+                    checked={item.Value === value}
                     onChange={onChange}
                 />)
         })

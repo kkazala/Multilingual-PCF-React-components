@@ -33,23 +33,23 @@ export class JSONDisplay implements ComponentFramework.ReactControl<IInputs, IOu
 
         const show = isAuthoringMode
             || !isBound  // always show if not bound and has text
-            || sourceControl.raw === true; //if bound, check the value true/false
+            || sourceControl?.raw === true; //if bound, check the value true/false
 
         let disabled = context.mode.isControlDisabled;
         let masked = false;
 
         //If bound to control, check security
-        if (isBound && sourceControl.security) {
-            disabled = disabled || !sourceControl.security.editable;
-            masked = !sourceControl.security.readable;
+        if (isBound && sourceControl?.security) {
+            disabled = disabled || !sourceControl?.security.editable;
+            masked = !sourceControl?.security.readable;
         }
 
         return show && !masked
             ? React.createElement(
-                PrintJSON,{
-                    key:Date.now().toString(),
-                    jsonVal: jsonVal?.raw ?? "",
-                }
+                PrintJSON, {
+                key: Date.now().toString(),
+                jsonVal: jsonVal?.raw ?? "",
+            }
             )
             : React.createElement(React.Fragment, null);
     }
