@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="PCF" constructor="ResizableField" version="1.0.0"
+  <control namespace="PCF" constructor="ResizableField" version="1.0.1"
     display-name-key="Resizable Textarea"
     description-key="Resizable Multiline Text, with multilingual Placeholder text."
     control-type="virtual" preview-image="img/preview.png">
