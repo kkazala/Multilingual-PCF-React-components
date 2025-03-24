@@ -46,11 +46,13 @@ export class ResizableField implements ComponentFramework.ReactControl<IInputs, 
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
         const { sourceControl, placeholderHint, resizeChoice, height, maxHeight } = context.parameters;
 
-        if(this.triggerRerender===false){
-            this.triggerRerender=true;  //reset the flag to ensure that the control re-renders when the text is updated by the model-driven app
-        }
-        else{
-            this.key = Date.now().toString(); //update the key value to force the control to re-render
+        if (context.updatedProperties.indexOf("sourceControl") > -1) {
+            if (this.triggerRerender === false) {
+                this.triggerRerender = true;  //reset the flag to ensure that the control re-renders when the text is updated by the model-driven app
+            }
+            else {
+                this.key = Date.now().toString(); //update the key value to force the control to re-render
+            }
         }
 
         let disabled = context.mode.isControlDisabled;

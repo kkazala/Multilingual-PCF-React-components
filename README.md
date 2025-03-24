@@ -89,6 +89,13 @@ See more: [Risk Calculations](./Components/RiskCalculations/README.md)
 
 To rebuild the solution after you customized the components, run:
 
+from ./Components/_Utils folder:
+```bash
+npm i
+npm run build
+```
+
+from ./MultilingualComponents folder:
 ```bash
 msbuild /t:build /restore
 ```
