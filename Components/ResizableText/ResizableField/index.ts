@@ -6,12 +6,10 @@ export class ResizableField implements ComponentFramework.ReactControl<IInputs, 
     private context: ComponentFramework.Context<IInputs>;
     private notifyOutputChanged: () => void;
     private newText: string | undefined;
-    private triggerRerender: boolean = false;
-    private key: string = Date.now().toString();
 
     constructor() { }
     /** Update control's content
-     * When the text is updated by the user, the onChange and updateView methods are called in sequence.
+     * When the text is updated by the user, the onChange and updateView methods are called in sequence. The updateView metgod is trigger by notifyOutputChanged
      * When the text is updated by the model-driven app, only the updateView method is called.
      * To ensure that the control re-renders when the text is updated by the model-driven app, we need update the `key` value in the updateView method
      * However, if this happens when a user is typing, the control will lose focus and the user will have to click back into the control to continue typing.
@@ -34,26 +32,16 @@ export class ResizableField implements ComponentFramework.ReactControl<IInputs, 
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
         this.context = context;
-        this.context.mode.trackContainerResize(true);
     }
 
     /**
      * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
-     *  However, it only fires when the control is refreshed or rendered... unles you update the key property
+     *  However, it only fires when the control is refreshed or rendered... unles you update the 'key' property
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
         const { sourceControl, placeholderHint, resizeChoice, height, maxHeight } = context.parameters;
-
-        if (context.updatedProperties.indexOf("sourceControl") > -1) {
-            if (this.triggerRerender === false) {
-                this.triggerRerender = true;  //reset the flag to ensure that the control re-renders when the text is updated by the model-driven app
-            }
-            else {
-                this.key = Date.now().toString(); //update the key value to force the control to re-render
-            }
-        }
 
         let disabled = context.mode.isControlDisabled;
         let masked = false;
@@ -63,34 +51,36 @@ export class ResizableField implements ComponentFramework.ReactControl<IInputs, 
         }
 
         return React.createElement(
-            ResizableText,{
-                key: this.key,
-                textValue: sourceControl?.raw || "",
-                placeHolderText: placeholderHint?.raw || "",
-                resizeChoice: resizeChoice?.raw || "0",
-                height: height?.raw || 100,
-                maxHeight: maxHeight?.raw || 650,
-                disabled,
-                masked,
-                lcid: context.userSettings.languageId.toString(),
-                onChange: this.onChange
-            }
+            ResizableText, {
+            textValue: sourceControl?.raw || "",
+            placeHolderText: placeholderHint?.raw || "",
+            resizeChoice: resizeChoice?.raw || "0",
+            height: height?.raw || 100,
+            maxHeight: maxHeight?.raw || 650,
+            disabled,
+            masked,
+            lcid: context.userSettings.languageId.toString(),
+            onChange: this.onChange,
+            name: sourceControl?.attributes?.DisplayName || "ResizableText"
+        }
         );
         // ||  is falsy: false,0,"",NaN, null, undefined
         // ?? is nullish: null, undefined
     }
-    onChange = (newValue: string ): void => {
+
+    onChange = (newValue: string): void => {
         this.newText = newValue;
-        this.triggerRerender=false; //do not re-render when the text is updated by the user
+        // this.triggerRerender=false; //do not re-render when the text is updated by the user
         this.notifyOutputChanged();
     };
+
     /**
      * It is called by the framework prior to a control receiving new data.
      * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
      */
     public getOutputs(): IOutputs {
         return {
-            sourceControl: this.newText ??""
+            sourceControl: this.newText ?? ""
         };
     }
 

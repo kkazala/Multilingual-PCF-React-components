@@ -13,6 +13,7 @@ export type ResizableTextProps = {
     masked: boolean;
     lcid: string;
     onChange: (newValue: string) => void;
+    name: string;
 }
 
 type ResizeChoices = "none" | "vertical";
@@ -20,6 +21,10 @@ type ResizeChoices = "none" | "vertical";
 const useStyles = makeStyles({
     container: {
         width: '100%',
+    },
+    span: {
+        width: '100%',
+        border: '1px solid #ccc'
     }
 });
 
@@ -27,6 +32,7 @@ const ResizableText = (props: ResizableTextProps): JSX.Element => {
     const styles = useStyles();
     const inputReference = useRef<HTMLTextAreaElement | null>(null);
     const { textValue, placeHolderText, disabled, masked, lcid, height, maxHeight, resizeChoice, onChange } = props;
+    let key: string = new Date().getTime().toString();
 
     const textAreaHeightStyle = React.useMemo(() => ({
         ['minHeight']: `${height}px`,
@@ -44,6 +50,11 @@ const ResizableText = (props: ResizableTextProps): JSX.Element => {
         }
     }
 
+    React.useEffect(() => {
+        // console.log(`rendering control ${props.name} with value: ${textValue}`);
+        key = new Date().getTime().toString();
+    }, [textValue]);
+
     // inform PCF component about value change AFTER the focus out
     // this ensures the control doesn't lose focus "randomly" and is aligned with how the out-of-the-box control works
     const onFocusOut = (_: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,15 +63,17 @@ const ResizableText = (props: ResizableTextProps): JSX.Element => {
 
     return (<IdPrefixProvider value="PCF-ResizableTextArea" >
         <FluentProvider theme={webLightTheme} className={styles.container} >
-                <Textarea
+            <Textarea
+                key={key}
+                ref={inputReference}
                 resize={getResizeChoice(resizeChoice)}
                 placeholder={Utils.GetValueLocalized(placeHolderText, lcid)}
-                defaultValue={masked? "***":textValue}
+                defaultValue={masked ? "***" : textValue}
                 onBlur={onFocusOut}
-                className={styles.container}
+                className={styles.span}
                 textarea={{ style: textAreaHeightStyle }}
                 disabled={disabled}
-                />
+            />
         </FluentProvider>
     </IdPrefixProvider >
     );
