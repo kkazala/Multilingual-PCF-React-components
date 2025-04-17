@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="kk" constructor="OptionSetButtons" version="1.0.2"
+  <control namespace="PCF" constructor="OptionSetButtons" version="1.0.2"
     display-name-key="OptionSet Buttons " description-key="OptionSet Buttons Fluent UI v9"
     control-type="virtual" preview-image="img/preview.png">
     <external-service-usage enabled="false">

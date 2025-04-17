@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="kk" constructor="DateAsToggle" version="1.0.0"
+  <control namespace="PCF" constructor="DateAsToggle" version="1.0.0"
     display-name-key="Date as toggle"
     description-key="Display Date field as Toggle, and set date to the current date when selected. Set to empty when unselected."
     control-type="virtual" preview-image="img/preview.png">
