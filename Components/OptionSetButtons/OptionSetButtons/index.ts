@@ -8,6 +8,7 @@ export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs
     private context: ComponentFramework.Context<IInputs>;
     private notifyOutputChanged: () => void;
     selectedValue: number | undefined;
+    allowUnselect: boolean = false;
 
     constructor() { }
 
@@ -32,7 +33,10 @@ export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs
      * @returns ReactElement root react element for the control
      */
     public updateView(context: ComponentFramework.Context<IInputs>): React.ReactElement {
-        const { sourceControl } = context.parameters;
+        const { sourceControl} = context.parameters;
+
+        //if is required - cannot unselect
+        this.allowUnselect = sourceControl.attributes?.RequiredLevel === 0;
 
         let disabled = context.mode.isControlDisabled;
         let masked = false;
@@ -54,7 +58,12 @@ export class OptionSetButtons implements ComponentFramework.ReactControl<IInputs
         );
     }
     onChange = (newValue: number | undefined): void => {
-        this.selectedValue = newValue;
+        if(this.allowUnselect && newValue === this.selectedValue) {
+            this.selectedValue = undefined;
+        }
+        else{
+            this.selectedValue = newValue;
+        }
         this.notifyOutputChanged();
     };
 
