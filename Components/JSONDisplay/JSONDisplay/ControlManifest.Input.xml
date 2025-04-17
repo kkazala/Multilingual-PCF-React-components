@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="PCF" constructor="JSONDisplay" version="1.0.1" display-name-key="Display JSON"
+  <control namespace="kk" constructor="JSONDisplay" version="1.0.1" display-name-key="Display JSON"
     description-key="Displays form validation information in a list format, based on provided JSON content."
     control-type="virtual" preview-image="img/preview.png">
     <external-service-usage enabled="false">

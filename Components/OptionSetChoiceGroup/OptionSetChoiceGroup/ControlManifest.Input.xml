@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="PCF" constructor="OptionSetChoiceGroup" version="1.0.1"
+  <control namespace="kk" constructor="OptionSetChoiceGroup" version="1.0.1"
     display-name-key="OptionSet Choice Group"
     description-key="Display OptionSet as a Choice Group, inline or below text, with choices displayed horizontally or vertically. Provides multilingual support."
     control-type="virtual" preview-image="img/preview.png">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-    <control namespace="PCF" constructor="RiskCalculations" version="1.0.0"
+    <control namespace="kk" constructor="RiskCalculations" version="1.0.0"
         display-name-key="Risk Calculations"
         description-key="Calculate risk based on the impact and probability of an event."
         control-type="virtual" preview-image="img/preview.png">

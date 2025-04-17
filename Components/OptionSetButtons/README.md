@@ -1,7 +1,7 @@
 ﻿# OptionSet Buttons
 
 ![react](https://img.shields.io/badge/react-16.8.6-brightgreen?style=plastic)
- ![Fluent](https://img.shields.io/badge/@fluentui/react-8.29.0-brightgreen?style=plastic) ![Fluent](https://img.shields.io/badge/%40fluentui%2Freact--components-9.46.2-brightgreen?style=plastic)
+![Fluent](https://img.shields.io/badge/@fluentui/react-8.29.0-brightgreen?style=plastic) ![Fluent](https://img.shields.io/badge/%40fluentui%2Freact--components-9.46.2-brightgreen?style=plastic)
 
 The **OptionSet Buttons** component allows for an intuitive display of available choices in model-driven applications. It is designed to be associated with a `Choice` table column, presenting each choice as a button styled with designated colors.
 
@@ -11,7 +11,7 @@ The **OptionSet Buttons** component allows for an intuitive display of available
 - **Text contrast**: The component automatically ensures appropriate contrast between button text and background color.
   - Light text color is applied for dark backgrounds.
   - Dark text color is used for light backgrounds.
-
+- **Unselect** if the column is not required. From solution version `1.1.3`
 
 ## Configuration
 
